@@ -13,7 +13,12 @@ export default function Header() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar sx={{ backgroundColor: theme.palette.primary.main }}>
+        <Toolbar
+          sx={{
+            // backgroundColor: theme.palette.primary.main,
+            // color: theme.palette.white.main,
+          }}
+        >
           <Typography component="h1" variant="title" sx={{ flexGrow: 1 }}>
             Amazon Search
           </Typography>
