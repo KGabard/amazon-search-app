@@ -1,7 +1,6 @@
-import { Typography } from '@mui/material'
-import { ApolloError, QueryResult, useQuery } from '@apollo/client'
+import { Grid, Typography } from '@mui/material'
+import { ApolloError, QueryResult } from '@apollo/client'
 import { ProductResultsType } from '@/types'
-import getSearchProducts from '@/data/MockedApi'
 import ProductCard from '@/app/components/product-card/ProductCard'
 import { ProductClass } from '@/models/ProductModel'
 
@@ -19,6 +18,19 @@ type Props = {
         loading: boolean
         error: boolean | ApolloError | undefined
       }
+}
+
+const gridContainerStyle = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(244px, 1fr))',
+  gridGap: '32px',
+  gridRowGap: '32px',
+  justifyItems: 'center',
+  // justifyContent: 'center',
+}
+
+const gridItemStyle = {
+  width: 'fit-content',
 }
 
 export default function SearchList({ searchTerm, queryResult }: Props) {
@@ -44,13 +56,15 @@ export default function SearchList({ searchTerm, queryResult }: Props) {
     )
 
   return (
-    <ul>
+    <Grid container style={gridContainerStyle}>
       {productResults.results.map((product, index) => (
-        <ProductCard
-          key={product.asin + '_' + index}
-          product={new ProductClass(product)}
-        />
+        <Grid item key={index} style={gridItemStyle}>
+          <ProductCard
+            key={product.asin + '_' + index}
+            product={new ProductClass(product)}
+          />
+        </Grid>
       ))}
-    </ul>
+    </Grid>
   )
 }

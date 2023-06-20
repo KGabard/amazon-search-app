@@ -1,6 +1,7 @@
 import { ProductClass } from '@/models/ProductModel'
 import { theme } from '@/styles/theme'
-import { Paper, Typography } from '@mui/material'
+import { Box, Paper, Typography } from '@mui/material'
+import Image from 'next/image'
 
 type Props = {
   product: ProductClass
@@ -12,13 +13,34 @@ export default function ProductCard({ product }: Props) {
       sx={{
         backgroundColor: theme.palette.neutral.tertiary,
         color: theme.palette.white.main,
-        p: 4,
+        p: 2,
+        minWidth: '244px',
         maxWidth: '320px',
+        width: '100%',
         height: '360px',
         overflow: 'hidden',
         borderRadius: 4,
       }}
     >
+      <Box
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height: '200px',
+          borderRadius: 2,
+          overflow: 'hidden',
+          backgroundColor: '#FEFEFE',
+        }}
+      >
+        <Image
+          src={product.picture}
+          alt={product.title}
+          fill={true}
+          style={{
+            objectFit: 'contain',
+          }}
+        />
+      </Box>
       <Typography
         component={'h2'}
         variant="body"
