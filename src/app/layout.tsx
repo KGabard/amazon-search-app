@@ -4,7 +4,7 @@ import { theme } from '@/styles/theme'
 import Header from './components/header/Header'
 import './globals.css'
 import { ThemeProvider } from '@mui/material/styles'
-import { lora, montserrat } from '@/styles/fonts'
+import { montserrat, raleway, share } from '@/styles/fonts'
 import {
   ApolloClient,
   InMemoryCache,
@@ -51,7 +51,7 @@ export default function RootLayout({
       <ApolloProvider client={client}>
         <html lang="en">
           <body
-            className={`${lora.variable} ${montserrat.variable}`}
+            className={`${montserrat.variable} ${share.variable} ${raleway.variable}`}
             style={{
               backgroundColor: theme.palette.neutral.secondary,
               color: theme.palette.white.main,

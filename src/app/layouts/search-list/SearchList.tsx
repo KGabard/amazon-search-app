@@ -2,6 +2,8 @@ import { Typography } from '@mui/material'
 import { ApolloError, QueryResult, useQuery } from '@apollo/client'
 import { ProductResultsType } from '@/types'
 import getSearchProducts from '@/data/MockedApi'
+import ProductCard from '@/app/components/product-card/ProductCard'
+import { ProductClass } from '@/models/ProductModel'
 
 type Props = {
   searchTerm: string
@@ -44,7 +46,10 @@ export default function SearchList({ searchTerm, queryResult }: Props) {
   return (
     <ul>
       {productResults.results.map((product, index) => (
-        <li key={product.asin + '_' + index}>{product.title}</li>
+        <ProductCard
+          key={product.asin + '_' + index}
+          product={new ProductClass(product)}
+        />
       ))}
     </ul>
   )

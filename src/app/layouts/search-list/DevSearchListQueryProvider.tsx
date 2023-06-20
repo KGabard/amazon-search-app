@@ -1,4 +1,3 @@
-import { gql, useQuery } from '@apollo/client'
 import SearchList from './SearchList'
 import getSearchProducts from '@/data/MockedApi'
 

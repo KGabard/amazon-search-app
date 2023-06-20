@@ -1,8 +1,9 @@
 export type ProductType = {
   asin: string
   title: string
-  rating: number
-  ratingsTotal: number
+  rating: number | null
+  ratingsTotal: number | null
+  mainImageUrl: string
   price: {
     display: string
   }

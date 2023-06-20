@@ -5,6 +5,7 @@ declare module '@mui/material/styles' {
     title: React.CSSProperties
     subtitle: React.CSSProperties
     body: React.CSSProperties
+    bodyItalic: React.CSSProperties
   }
 
   // allow configuration using `createTheme`
@@ -12,6 +13,7 @@ declare module '@mui/material/styles' {
     title?: React.CSSProperties
     subtitle?: React.CSSProperties
     body?: React.CSSProperties
+    bodyItalic?: React.CSSProperties
   }
 }
 
@@ -21,6 +23,7 @@ declare module '@mui/material/Typography' {
     title: true
     subtitle: true
     body: true
+    bodyItalic: true
     h6: false
   }
 }
@@ -60,24 +63,30 @@ export const theme = createTheme({
     neutral: {
       main: '#a6afaf',
       secondary: '#2f4f4f',
-      tertiary: '#142929',
+      tertiary: '#1e3b3b',
     },
   },
   typography: {
     title: {
       fontSize: '32px',
-      fontWeight: 600,
+      fontWeight: 400,
       fontFamily: 'var(--font-montserrat)',
     },
     subtitle: {
       fontSize: '24px',
       fontWeight: 400,
-      fontFamily: 'var(--font-montserrat)',
+      fontFamily: 'var(--font-share)',
     },
     body: {
       fontSize: '18px',
       fontWeight: 400,
-      fontFamily: 'var(--font-lora)',
+      fontFamily: 'var(--font-raleway)',
+    },
+    bodyItalic: {
+      fontSize: '18px',
+      fontWeight: 400,
+      fontStyle: 'italic',
+      fontFamily: 'var(--font-raleway)',
     },
     // Disable h6 variant
     h6: undefined,
