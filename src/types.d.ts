@@ -4,7 +4,7 @@ export type ProductType = {
   rating: number | null
   ratingsTotal: number | null
   mainImageUrl: string
-  url: string
+  url: string | null
   price: {
     display: string
   } | null

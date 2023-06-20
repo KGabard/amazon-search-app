@@ -3,6 +3,7 @@ import SearchInput from './SearchInput'
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof SearchInput> = {
+  title: 'SearchInput',
   component: SearchInput,
 }
 

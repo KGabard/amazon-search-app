@@ -21,6 +21,7 @@ const GET_SEARCH_PRODUCTS = gql`
           rating
           ratingsTotal
           mainImageUrl
+          url
           price {
             display
           }
@@ -34,7 +35,7 @@ export default function ProdSearchListQueryProvider({ searchTerm }: Props) {
   let queryResult = useQuery(GET_SEARCH_PRODUCTS, { variables: { searchTerm } })
   return (
     <div>
-      <SearchList searchTerm={searchTerm} queryResult={queryResult} />
+      <SearchList queryResult={queryResult} />
     </div>
   )
 }

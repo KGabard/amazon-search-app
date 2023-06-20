@@ -2,7 +2,7 @@ import { theme } from '@/styles/theme'
 import { Button, Grid, Typography, styled } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-mui'
-import { CSSProperties } from 'react'
+import { CSSProperties, Dispatch, SetStateAction } from 'react'
 import * as Yup from 'yup'
 
 export const initialValues = {
@@ -37,7 +37,7 @@ const MyTextField = styled(TextField)(({ theme }) => ({
   },
   '& input': {
     color: theme.palette.white.main,
-    borderColor: theme.palette.primary.main, // Update the border color here
+    borderColor: theme.palette.primary.main,
     borderWidth: 1,
     fontFamily: theme.typography.body.fontFamily,
     fontWeight: theme.typography.body.fontWeight,
@@ -63,14 +63,18 @@ const MyTextField = styled(TextField)(({ theme }) => ({
   },
 }))
 
-export default function SearchInput() {
+type Props = {
+  setSearchTerm: Dispatch<SetStateAction<string>>
+}
+
+export default function SearchInput({ setSearchTerm }: Props) {
   return (
     <section className="search-input" style={sectionStyle}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          alert(JSON.stringify(values, null, 2))
+          setSearchTerm(values.searchTerm)
           actions.setSubmitting(false)
         }}
       >

@@ -5,7 +5,6 @@ import ProductCard from '@/app/components/product-card/ProductCard'
 import { ProductClass } from '@/models/ProductModel'
 
 type Props = {
-  searchTerm: string
   queryResult:
     | QueryResult<
         any,
@@ -33,8 +32,10 @@ const gridItemStyle = {
   width: 'fit-content',
 }
 
-export default function SearchList({ searchTerm, queryResult }: Props) {
+export default function SearchList({ queryResult }: Props) {
   const { data, loading, error } = queryResult
+
+  console.log(data)
 
   const productResults: ProductResultsType =
     data?.amazonProductSearchResults.productResults

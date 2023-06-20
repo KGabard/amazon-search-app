@@ -28,7 +28,7 @@ export class ProductClass {
   }
 
   get url() {
-    return this._product.url
+    return this._product.url ? this._product.url : ''
   }
 
   get price() {

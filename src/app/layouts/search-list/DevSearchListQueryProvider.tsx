@@ -10,7 +10,7 @@ export default function ProdSearchListQueryProvider({ searchTerm }: Props) {
 
   return (
     <div>
-      <SearchList searchTerm={searchTerm} queryResult={queryResult} />
+      <SearchList queryResult={queryResult} />
     </div>
   )
 }

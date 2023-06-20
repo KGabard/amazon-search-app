@@ -25,9 +25,9 @@ const containerStyle: SxProps<Theme> = {
   boxShadow: '5px 5px 16px rgba(0,0,0,0.5)',
   transition: 'transform 0.3s ease-in-out',
   transform: 'scale(1)',
+  cursor: 'pointer',
   ':hover': {
     transform: 'scale(1.05)',
-    cursor: 'pointer',
   },
 }
 
@@ -82,6 +82,7 @@ export default function ProductCard({ product }: Props) {
             style={{
               objectFit: 'contain',
             }}
+            sizes={'(max-width: 768px) 100vw'}
           />
         </Box>
         <Box sx={infoContainerStyle}>

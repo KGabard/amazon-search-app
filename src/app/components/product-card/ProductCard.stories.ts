@@ -5,6 +5,7 @@ import { ProductClass } from '@/models/ProductModel'
 
 //👇 This default export determines where your story goes in the story list
 const meta: Meta<typeof ProductCard> = {
+  title: 'ProductCard',
   component: ProductCard,
 }
 
