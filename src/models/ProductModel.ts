@@ -27,7 +27,11 @@ export class ProductClass {
     return this._product.mainImageUrl
   }
 
+  get url() {
+    return this._product.url
+  }
+
   get price() {
-    return this._product.price.display
+    return this._product.price ? this._product.price.display : 'Unknown'
   }
 }
