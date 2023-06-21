@@ -1,152 +1,60 @@
-import { Field } from 'formik'
+import { Field, FieldAttributes } from 'formik'
 import MenuItem from '@mui/material/MenuItem'
-// import { Select } from 'formik-mui'
-import { styled, Select } from '@mui/material'
+import { styled, TextField } from '@mui/material'
 
-const StyledSelect = styled(Select)(({ theme }) => ({
-  '& .MuiInputBase-input': {
-    color: 'blue',
-    borderColor: 'blue',
-    borderWidth: 1,
-    fontFamily: theme.typography.title.fontFamily,
-    fontWeight: theme.typography.title.fontWeight,
-    fontSize: theme.typography.title.fontSize,
-    minHeight: 'auto !important',
+const StyledComponent = styled(TextField)(({ theme }) => ({
+  '& label': {
+    color: theme.palette.white.main,
+    fontFamily: theme.typography.body.fontFamily,
+    fontWeight: theme.typography.body.fontWeight,
+    fontSize: theme.typography.body.fontSize,
   },
-  'label': {
-    color: 'blue !important',
-    borderColor: 'blue',
-    borderWidth: 1,
-    fontFamily: theme.typography.title.fontFamily,
-    fontWeight: theme.typography.title.fontWeight,
-    fontSize: theme.typography.title.fontSize,
-    minHeight: 'auto !important',
-    backgroundColor: 'blue',
+  '& .MuiSelect-select': {
+    color: theme.palette.white.main,
+    fontFamily: theme.typography.body.fontFamily,
+    fontWeight: theme.typography.body.fontWeight,
+    fontSize: theme.typography.body.fontSize,
   },
-  '& .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'blue',
-    borderWidth: 1,
+  '& .MuiOutlinedInput-root': {
+    '& fieldset': {
+      borderColor: theme.palette.white.main,
+    },
+    '&:hover fieldset': {
+      borderColor: theme.palette.primary.main,
+    },
   },
-
-  '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-    borderColor: 'blue',
+  '& label.Mui-focused': {
+    fontWeight: 'inherit',
+    fontSize: 'inherit',
+  },
+  '& label.MuiFormLabel-filled': {
+    fontWeight: 'inherit',
+    fontSize: 'inherit',
+  },
+  '& .MuiFormHelperText-root': {
+    fontFamily: theme.typography.bodySmallItalic.fontFamily,
+    fontWeight: theme.typography.bodySmallItalic.fontWeight,
+    fontSize: theme.typography.bodySmallItalic.fontSize,
+    fontStyle: theme.typography.bodySmallItalic.fontStyle,
+  },
+  '& .MuiSvgIcon-root': {
+    color: theme.palette.white.main,
   },
 }))
 
-// const StyledLabel = styled('label')(({ theme }) => ({
-//   color: 'blue',
-//   fontFamily: theme.typography.title.fontFamily,
-//   fontWeight: theme.typography.title.fontWeight,
-//   fontSize: theme.typography.title.fontSize,
-//   '&.Mui-focused': {
-//     color: 'green',
-//     borderColor: 'green',
-//   },
-// }));
-
 type Props = {
-  name: string
-  label: string
-  itemsList: string[]
+  options: string[]
+  muiAttributes: { [key: string]: FieldAttributes<any> }
 }
 
-export default function MySelectField({ name, label, itemsList }: Props) {
+export default function MySelectField({ options, muiAttributes }: Props) {
   return (
-    <Field
-      component={Select}
-      sx={{ minWidth: '244px' }}
-      // formControl={{ sx: FormControl }}
-      // formHelperText={{ children: 'How old are you?' }}
-      id={name}
-      name={name}
-      // labelId="age-simple"
-      label={label}
-    >
-      {itemsList.length > 0 &&
-        itemsList.map((item, index) => {
-          return (
-            <MenuItem key={index} value={item}>
-              {item}
-            </MenuItem>
-          )
-        })}
+    <Field as={StyledComponent} select {...muiAttributes}>
+      {options.map((option) => (
+        <MenuItem key={option} value={option}>
+          {option}
+        </MenuItem>
+      ))}
     </Field>
   )
 }
-
-
-// import { Field } from 'formik'
-// import MenuItem from '@mui/material/MenuItem'
-// // import { Select } from 'formik-mui'
-// import { styled, Select } from '@mui/material'
-
-// const StyledSelect = styled(Select)(({ theme }) => ({
-//   '& .MuiInputBase-input': {
-//     color: 'blue',
-//     borderColor: 'blue',
-//     borderWidth: 1,
-//     fontFamily: theme.typography.title.fontFamily,
-//     fontWeight: theme.typography.title.fontWeight,
-//     fontSize: theme.typography.title.fontSize,
-//     minHeight: 'auto !important',
-//   },
-//   'label': {
-//     color: 'blue !important',
-//     borderColor: 'blue',
-//     borderWidth: 1,
-//     fontFamily: theme.typography.title.fontFamily,
-//     fontWeight: theme.typography.title.fontWeight,
-//     fontSize: theme.typography.title.fontSize,
-//     minHeight: 'auto !important',
-//     backgroundColor: 'blue',
-//   },
-//   '& .MuiOutlinedInput-notchedOutline': {
-//     borderColor: 'blue',
-//     borderWidth: 1,
-//   },
-
-//   '& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline': {
-//     borderColor: 'blue',
-//   },
-// }))
-
-// // const StyledLabel = styled('label')(({ theme }) => ({
-// //   color: 'blue',
-// //   fontFamily: theme.typography.title.fontFamily,
-// //   fontWeight: theme.typography.title.fontWeight,
-// //   fontSize: theme.typography.title.fontSize,
-// //   '&.Mui-focused': {
-// //     color: 'green',
-// //     borderColor: 'green',
-// //   },
-// // }));
-
-// type Props = {
-//   name: string
-//   label: string
-//   itemsList: string[]
-// }
-
-// export default function MySelectField({ name, label, itemsList }: Props) {
-//   return (
-//     <Field
-//       component={Select}
-//       sx={{ minWidth: '244px' }}
-//       // formControl={{ sx: FormControl }}
-//       // formHelperText={{ children: 'How old are you?' }}
-//       id={name}
-//       name={name}
-//       // labelId="age-simple"
-//       label={label}
-//     >
-//       {itemsList.length > 0 &&
-//         itemsList.map((item, index) => {
-//           return (
-//             <MenuItem key={index} value={item}>
-//               {item}
-//             </MenuItem>
-//           )
-//         })}
-//     </Field>
-//   )
-// }
