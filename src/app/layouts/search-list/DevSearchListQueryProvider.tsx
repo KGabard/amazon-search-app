@@ -1,11 +1,7 @@
 import SearchList from './SearchList'
 import getSearchProducts from '@/data/MockedApi'
 
-type Props = {
-  searchTerm: string
-}
-
-export default function ProdSearchListQueryProvider({ searchTerm }: Props) {
+export default function ProdSearchListQueryProvider() {
   let queryResult = getSearchProducts()
 
   return (

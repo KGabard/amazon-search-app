@@ -1,23 +1,26 @@
-import { Typography } from "@mui/material"
-import ProdSearchListQueryProvider from "./ProdSearchListQueryProvider"
-import DevSearchListQueryProvider from "./DevSearchListQueryProvider"
+import { Typography } from '@mui/material'
+import ProdSearchListQueryProvider from './ProdSearchListQueryProvider'
+import DevSearchListQueryProvider from './DevSearchListQueryProvider'
+import { SearchInputType } from '@/types'
 
 type Props = {
-  searchTerm: string
+  searchInput: SearchInputType
 }
 
-export default function SearchListSection({searchTerm}: Props) {
+export default function SearchListSection({ searchInput }: Props) {
   return (
     <section className="searchListSection">
-    {!searchTerm || searchTerm.length === 0 ? (
-      <Typography component="h2" variant="subtitle">
-        Aucune recherche effectuée.
-      </Typography>
-    ) : process.env.NODE_ENV === 'production' ? (
-      <ProdSearchListQueryProvider searchTerm={searchTerm} />
-    ) : (
-      <DevSearchListQueryProvider searchTerm={searchTerm} />
-    )}
-  </section>
+      {!searchInput.search || searchInput.search.length === 0 ? (
+        <Typography component="h2" variant="subtitle">
+          Aucune recherche effectuée.
+        </Typography>
+      ) : process.env.NODE_ENV === 'production' ? (
+        <ProdSearchListQueryProvider
+          searchInput={searchInput}
+        />
+      ) : (
+        <DevSearchListQueryProvider />
+      )}
+    </section>
   )
 }

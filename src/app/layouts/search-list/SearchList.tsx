@@ -9,7 +9,9 @@ type Props = {
     | QueryResult<
         any,
         {
-          searchTerm: string
+          search: string
+          domain: string
+          sort: string
         }
       >
     | {

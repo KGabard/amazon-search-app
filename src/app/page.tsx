@@ -4,20 +4,23 @@ import { Container } from '@mui/material'
 import './page.css'
 import SearchListSection from './layouts/search-list/SearchListSection'
 import { useState } from 'react'
-import SearchInput from './components/search-input/SearchInput'
+import SearchInput, { initialValues } from './components/search-input/SearchInput'
+import { SearchInputType } from '@/types'
 
 export default function Home() {
-  const [searchTerm, setSearchTerm] = useState<string>('')
+  const [searchInput, setSearchInput] = useState<SearchInputType>(initialValues)
 
-  console.log(searchTerm)
+  console.log(searchInput)
 
   return (
     <main className="main">
       <Container
         sx={{ mt: 8, mb: 12, display: 'flex', flexDirection: 'column', gap: 8 }}
       >
-        <SearchInput setSearchTerm={setSearchTerm} />
-        <SearchListSection searchTerm={searchTerm} />
+        <SearchInput setSearchInput={setSearchInput} />
+        <SearchListSection
+          searchInput={searchInput}
+        />
       </Container>
     </main>
   )

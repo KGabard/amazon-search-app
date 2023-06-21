@@ -1,14 +1,13 @@
 import { gql, useQuery } from '@apollo/client'
 import SearchList from './SearchList'
-
-type Props = {
-  searchTerm: string
-}
+import { SearchInputType } from '@/types'
 
 const GET_SEARCH_PRODUCTS = gql`
-  query SearchProducts($searchTerm: String!) {
-    amazonProductSearchResults(input: { searchTerm: $searchTerm }) {
-      productResults(input: { page: "1", sort: FEATURED }) {
+  query SearchProducts($search: String!, $domain: String!, $sort: String!) {
+    amazonProductSearchResults(
+      input: { searchInput: $search, domain: $domain }
+    ) {
+      productResults(input: { page: "1", sort: $sort }) {
         pageInfo {
           currentPage
           totalPages
@@ -17,13 +16,23 @@ const GET_SEARCH_PRODUCTS = gql`
         }
         results {
           asin
+          price {
+            display
+          }
           title
           rating
           ratingsTotal
           mainImageUrl
           url
-          price {
-            display
+          categories {
+            name
+          }
+          ratingsBreakdown {
+            fiveStarRatingsCount
+            fourStarRatingsCount
+            oneStarRatingsCount
+            threeStarRatingsCount
+            twoStarRatingsCount
           }
         }
       }
@@ -31,8 +40,16 @@ const GET_SEARCH_PRODUCTS = gql`
   }
 `
 
-export default function ProdSearchListQueryProvider({ searchTerm }: Props) {
-  let queryResult = useQuery(GET_SEARCH_PRODUCTS, { variables: { searchTerm } })
+type Props = {
+  searchInput: SearchInputType
+}
+
+export default function ProdSearchListQueryProvider({ searchInput }: Props) {
+  const { search, domain, sort } = searchInput
+
+  const queryResult = useQuery(GET_SEARCH_PRODUCTS, {
+    variables: { search, domain, sort },
+  })
   return (
     <div>
       <SearchList queryResult={queryResult} />

@@ -8,6 +8,16 @@ export type ProductType = {
   price: {
     display: string
   } | null
+  categories: {
+    name
+  }[]
+  ratingsBreakdown: {
+    fiveStarRatingsCount
+    fourStarRatingsCount
+    oneStarRatingsCount
+    threeStarRatingsCount
+    twoStarRatingsCount
+  } | null
 }
 
 export type PageType = {
@@ -20,4 +30,10 @@ export type PageType = {
 export type ProductResultsType = {
   pageInfo: PageType
   results: ProductType[]
+}
+
+export type SearchInputType = {
+  search: string
+  domain: string
+  sort: string
 }

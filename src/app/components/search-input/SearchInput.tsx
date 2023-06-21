@@ -1,4 +1,5 @@
 import { theme } from '@/styles/theme'
+import { SearchInputType } from '@/types'
 import { Button, Grid, Typography, styled } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-mui'
@@ -6,11 +7,13 @@ import { CSSProperties, Dispatch, SetStateAction } from 'react'
 import * as Yup from 'yup'
 
 export const initialValues = {
-  searchTerm: '',
+  search: '',
+  domain: 'US',
+  sort: 'FEATURED',
 }
 
 export const validationSchema = Yup.object({
-  searchTerm: Yup.string()
+  search: Yup.string()
     .max(30, 'Search term should be shorter than 30 caracters')
     .min(2, 'Search term should be longer than 2 caracters')
     .required('Search term is required'),
@@ -64,17 +67,17 @@ const MyTextField = styled(TextField)(({ theme }) => ({
 }))
 
 type Props = {
-  setSearchTerm: Dispatch<SetStateAction<string>>
+  setSearchInput: Dispatch<SetStateAction<SearchInputType>>
 }
 
-export default function SearchInput({ setSearchTerm }: Props) {
+export default function SearchInput({ setSearchInput }: Props) {
   return (
     <section className="search-input" style={sectionStyle}>
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          setSearchTerm(values.searchTerm)
+          setSearchInput(values)
           actions.setSubmitting(false)
         }}
       >
@@ -83,7 +86,7 @@ export default function SearchInput({ setSearchTerm }: Props) {
             <Grid container direction="column" spacing={2}>
               <Grid item>
                 <Field
-                  name="searchTerm"
+                  name="search"
                   component={MyTextField}
                   label="Search"
                   fullWidth
