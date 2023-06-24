@@ -1,6 +1,6 @@
 import { ProductType } from '@/types'
 
-export class ProductClass {
+export default class ProductClass {
   _product: ProductType
 
   constructor(product: ProductType) {

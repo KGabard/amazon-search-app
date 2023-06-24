@@ -1,4 +1,4 @@
-import { ProductClass } from '@/models/ProductModel'
+import ProductClass from '@/models/ProductModel'
 import { theme } from '@/styles/theme'
 import { Box, Paper, Rating, SxProps, Theme, Typography } from '@mui/material'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'

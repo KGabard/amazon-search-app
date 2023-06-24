@@ -1,3 +1,5 @@
+import { DomainCodeType, SortCodeType } from "./models/SearchModel"
+
 export type ProductType = {
   asin: string
   title: string
@@ -34,6 +36,6 @@ export type ProductResultsType = {
 
 export type SearchInputType = {
   search: string
-  domain: string
-  sort: string
+  domain: DomainCodeType
+  sort: SortCodeType
 }

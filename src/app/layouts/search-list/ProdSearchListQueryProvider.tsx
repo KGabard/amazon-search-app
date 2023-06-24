@@ -3,9 +3,13 @@ import SearchList from './SearchList'
 import { SearchInputType } from '@/types'
 
 const GET_SEARCH_PRODUCTS = gql`
-  query SearchProducts($search: String!, $domain: String!, $sort: String!) {
+  query SearchProducts(
+    $search: String!
+    $domain: AmazonDomain!
+    $sort: AmazonProductResultsSort!
+  ) {
     amazonProductSearchResults(
-      input: { searchInput: $search, domain: $domain }
+      input: { searchTerm: $search, domain: $domain }
     ) {
       productResults(input: { page: "1", sort: $sort }) {
         pageInfo {
@@ -24,21 +28,19 @@ const GET_SEARCH_PRODUCTS = gql`
           ratingsTotal
           mainImageUrl
           url
-          categories {
-            name
-          }
-          ratingsBreakdown {
-            fiveStarRatingsCount
-            fourStarRatingsCount
-            oneStarRatingsCount
-            threeStarRatingsCount
-            twoStarRatingsCount
-          }
         }
       }
     }
   }
 `
+
+// ratingsBreakdown {
+//   fiveStarRatingsCount
+//   fourStarRatingsCount
+//   oneStarRatingsCount
+//   threeStarRatingsCount
+//   twoStarRatingsCount
+// }
 
 type Props = {
   searchInput: SearchInputType

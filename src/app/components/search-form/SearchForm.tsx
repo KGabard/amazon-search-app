@@ -6,14 +6,13 @@ import MyTextField from '../text-field/MyTextField'
 import { theme } from '@/styles/theme'
 import * as Yup from 'yup'
 import MySelectField from '../select-field/MySelectField'
+import SearchModel, {
+  DomainNameType,
+  SearchData,
+  SortNameType,
+} from '@/models/SearchModel'
 
-interface FormData {
-  search: string
-  domain: string
-  sort: string
-}
-
-export const initialValues: FormData = {
+export const initialValues: SearchData = {
   search: '',
   domain: '',
   sort: '',
@@ -28,8 +27,14 @@ const validationSchema = Yup.object({
   sort: Yup.string().required('Sort is required'),
 })
 
-const domainOptions = ['US', 'UK', 'FR']
-const sortOptions = ['FEATURE', 'PRICE', 'RATING']
+const domainOptions: DomainNameType[] = ['USA', 'United Kingdom', 'France']
+const sortOptions: SortNameType[] = [
+  'Featured',
+  'Most recent',
+  'Price: Low to High',
+  'Price: High to Low',
+  'Avg. Customer Review',
+]
 
 const sectionStyle: CSSProperties = {
   backgroundColor: theme.palette.neutral.tertiary,
@@ -45,10 +50,13 @@ type Props = {
   setSearchInput: Dispatch<SetStateAction<SearchInputType>>
 }
 
-export default function SearchInput({ setSearchInput }: Props) {
-  const handleSubmit = (values: FormData, actions: FormikHelpers<FormData>) => {
+export default function SearchForm({ setSearchInput }: Props) {
+  const handleSubmit = (
+    values: SearchData,
+    actions: FormikHelpers<SearchData>
+  ) => {
     console.log(values)
-    setSearchInput(values)
+    setSearchInput(new SearchModel(values).searchData)
     actions.setSubmitting(false)
   }
 
