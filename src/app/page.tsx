@@ -6,9 +6,10 @@ import SearchListSection from './layouts/search-list/SearchListSection'
 import { useState } from 'react'
 import SearchForm, { initialValues } from './components/search-form/SearchForm'
 import { SearchInputType } from '@/types'
+import SearchModel from '@/models/SearchModel'
 
 export default function Home() {
-  const [searchInput, setSearchInput] = useState<SearchInputType>(initialValues)
+  const [searchInput, setSearchInput] = useState<SearchInputType>(new SearchModel(initialValues).searchData)
 
   // console.log(searchInput)
 

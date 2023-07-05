@@ -1,19 +1,13 @@
 import { Grid, Typography } from '@mui/material'
 import { ApolloError, QueryResult } from '@apollo/client'
-import { ProductResultsType } from '@/types'
+import { ProductResultsType, SearchInputType } from '@/types'
 import ProductCard from '@/app/components/product-card/ProductCard'
 import ProductClass from '@/models/ProductModel'
+import { DomainCodeType, SortCodeType } from '@/models/SearchModel'
 
 type Props = {
   queryResult:
-    | QueryResult<
-        any,
-        {
-          search: string
-          domain: string
-          sort: string
-        }
-      >
+    | QueryResult<any, SearchInputType>
     | {
         data: any
         loading: boolean

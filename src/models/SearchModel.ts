@@ -1,3 +1,5 @@
+import { SearchInputType } from '@/types'
+
 export type DomainNameType = 'USA' | 'United Kingdom' | 'France' | ''
 export type DomainCodeType = 'US' | 'UK' | 'FR' | ''
 
@@ -46,14 +48,16 @@ export default class SearchModel {
     this._searchData = searchData
   }
 
-  get searchData() {
+  get searchData(): SearchInputType {
     const search = this._searchData.search
-    const domain = DomainsMatchList.find((domainName) => {
-      if (domainName[0] === this._searchData.domain) return domainName[1]
-    })
-    const sort = SortsMatchList.find((sortName) => {
-      if (sortName[0] === this._searchData.sort) return sortName[1]
-    })
+    const domain =
+      DomainsMatchList.find(
+        (domainName) => domainName[0] === this._searchData.domain
+      )?.[1] ?? ''
+    const sort =
+      SortsMatchList.find(
+        (sortName) => sortName[0] === this._searchData.sort
+      )?.[1] ?? ''
 
     return {
       search,

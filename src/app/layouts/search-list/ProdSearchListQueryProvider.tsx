@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client'
+import { QueryResult, gql, useQuery } from '@apollo/client'
 import SearchList from './SearchList'
 import { SearchInputType } from '@/types'
 
@@ -49,9 +49,12 @@ type Props = {
 export default function ProdSearchListQueryProvider({ searchInput }: Props) {
   const { search, domain, sort } = searchInput
 
-  const queryResult = useQuery(GET_SEARCH_PRODUCTS, {
-    variables: { search, domain, sort },
-  })
+  const queryResult: QueryResult<any, SearchInputType> = useQuery(
+    GET_SEARCH_PRODUCTS,
+    {
+      variables: { search, domain, sort },
+    }
+  )
   return (
     <div>
       <SearchList queryResult={queryResult} />
