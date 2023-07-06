@@ -15,11 +15,9 @@ export default function SearchListSection({ searchInput }: Props) {
           Aucune recherche effectuée.
         </Typography>
       ) : process.env.NODE_ENV === 'production' ? (
-        <ProdSearchListQueryProvider
-          searchInput={searchInput}
-        />
+        <ProdSearchListQueryProvider searchInput={searchInput} />
       ) : (
-        <DevSearchListQueryProvider />
+        <DevSearchListQueryProvider searchInput={searchInput} />
       )}
     </section>
   )

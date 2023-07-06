@@ -25,7 +25,9 @@ const gridContainerStyle = {
 }
 
 const gridItemStyle = {
-  width: 'fit-content',
+  width: '100%',
+  display: 'flex',
+  justifyContent: 'center',
 }
 
 export default function SearchList({ queryResult }: Props) {
@@ -36,12 +38,12 @@ export default function SearchList({ queryResult }: Props) {
   const productResults: ProductResultsType =
     data?.amazonProductSearchResults.productResults
 
-  if (loading)
-    return (
-      <Typography component="p" variant="body">
-        Loading...
-      </Typography>
-    )
+  // if (loading)
+  //   return (
+  //     <Typography component="p" variant="body">
+  //       Loading...
+  //     </Typography>
+  //   )
 
   if (error)
     return (
@@ -54,14 +56,21 @@ export default function SearchList({ queryResult }: Props) {
 
   return (
     <Grid container style={gridContainerStyle}>
-      {productResults.results.map((product, index) => (
-        <Grid item key={index} style={gridItemStyle}>
-          <ProductCard
-            key={product.asin + '_' + index}
-            product={new ProductClass(product)}
-          />
-        </Grid>
-      ))}
+      {loading
+        ? Array.from({ length: 16 }, (_, index) => (
+            <Grid item key={index} style={gridItemStyle}>
+              <ProductCard key={index} loading={true} />
+            </Grid>
+          ))
+        : productResults.results.map((product, index) => (
+            <Grid item key={index} style={gridItemStyle}>
+              <ProductCard
+                key={product.asin + '_' + index}
+                loading={false}
+                product={new ProductClass(product)}
+              />
+            </Grid>
+          ))}
     </Grid>
   )
 }
