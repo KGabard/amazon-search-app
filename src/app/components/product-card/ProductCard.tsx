@@ -1,4 +1,4 @@
-import ProductClass from '@/models/ProductModel'
+import { ProductClass } from '@/models/ProductModel'
 import { theme } from '@/styles/theme'
 import {
   Box,

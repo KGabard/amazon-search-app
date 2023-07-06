@@ -1,6 +1,6 @@
-import { ProductType } from '@/types'
+import { DetailedProductType, ProductType } from '@/types'
 
-export default class ProductClass {
+export class ProductClass {
   _product: ProductType
 
   constructor(product: ProductType) {
@@ -33,5 +33,40 @@ export default class ProductClass {
 
   get price() {
     return this._product.price ? this._product.price.display : 'Unknown'
+  }
+}
+
+export class DetailedProductClass extends ProductClass {
+  _detailedProduct: DetailedProductType
+
+  constructor(detailedProduct: DetailedProductType) {
+    super(detailedProduct)
+    this._detailedProduct = detailedProduct
+  }
+
+  get brand() {
+    return this._detailedProduct.brand
+  }
+
+  get reviewsCount() {
+    return this._detailedProduct.reviewsTotal
+  }
+
+  get subtitle() {
+    return this._detailedProduct.subtitle
+  }
+
+  get reviews() {
+    return this._detailedProduct.reviewsPaginated
+  }
+
+  get ratingsBreakdown() {
+    return [
+      this._detailedProduct.ratingsBreakdown.oneStarRatingsCount,
+      this._detailedProduct.ratingsBreakdown.twoStarRatingsCount,
+      this._detailedProduct.ratingsBreakdown.threeStarRatingsCount,
+      this._detailedProduct.ratingsBreakdown.fourStarRatingsCount,
+      this._detailedProduct.ratingsBreakdown.fiveStarRatingsCount,
+    ]
   }
 }

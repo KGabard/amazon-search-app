@@ -24,7 +24,7 @@ export default function DevProductInfosQueryProvider({ productAsin }: Props) {
 
     const fetchQueryResult = setTimeout(() => {
       setQueryResult(getProduct())
-    }, 2000)
+    }, 200)
   }, [productAsin])
 
   return (

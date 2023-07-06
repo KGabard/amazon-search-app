@@ -10,16 +10,6 @@ export type ProductType = {
   price: {
     display: string
   } | null
-  categories: {
-    name
-  }[]
-  ratingsBreakdown: {
-    fiveStarRatingsCount
-    fourStarRatingsCount
-    oneStarRatingsCount
-    threeStarRatingsCount
-    twoStarRatingsCount
-  } | null
 }
 
 export type PageType = {
@@ -47,26 +37,20 @@ export type ReviewType = {
   title: string
 }
 
-export type DetailedProductType = {
-  title: string
+export type RatingsBreakdownType = {
+  twoStarRatingsCount: number
+  threeStarRatingsCount: number
+  oneStarRatingsCount: number
+  fourStarRatingsCount: number
+  fiveStarRatingsCount: number
+}
+
+export type DetailedProductType = ProductType & {
   brand: string
-  mainImageUrl: string
-  reviewsTotal: number
-  ratingsTotal: number
-  rating: number
-  price: {
-    display: string
-  }
-  url: string
   subtitle: string
+  reviewsTotal: number
   reviewsPaginated: {
     reviews: ReviewType[]
   }
-  ratingsBreakdown: {
-    twoStarRatingsCount: number
-    threeStarRatingsCount: number
-    oneStarRatingsCount: number
-    fourStarRatingsCount: number
-    fiveStarRatingsCount: number
-  }
+  ratingsBreakdown: RatingsBreakdownType
 }

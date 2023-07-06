@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material'
 import { ApolloError, QueryResult } from '@apollo/client'
 import { ProductResultsType, SearchInputType } from '@/types'
 import ProductCard from '@/app/components/product-card/ProductCard'
-import ProductClass from '@/models/ProductModel'
+import { ProductClass } from '@/models/ProductModel'
 
 type Props = {
   queryResult:
