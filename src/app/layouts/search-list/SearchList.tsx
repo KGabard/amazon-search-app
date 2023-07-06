@@ -3,7 +3,6 @@ import { ApolloError, QueryResult } from '@apollo/client'
 import { ProductResultsType, SearchInputType } from '@/types'
 import ProductCard from '@/app/components/product-card/ProductCard'
 import ProductClass from '@/models/ProductModel'
-import { DomainCodeType, SortCodeType } from '@/models/SearchModel'
 
 type Props = {
   queryResult:

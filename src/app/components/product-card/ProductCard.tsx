@@ -14,7 +14,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 type Props = {
+  /** Manage loading state */
   loading: boolean
+  /** Object that contains infos about the product */
   product?: ProductClass
 }
 
@@ -77,8 +79,8 @@ const infoContainerStyle: SxProps<Theme> = {
 const filledProductCard = (product: ProductClass) => {
   return (
     <Link
-      href={product.url}
-      target="_blank"
+      href={`/product/${product.asin}`}
+      // target="_blank"
       style={{
         textDecoration: 'none',
         display: 'inline-block',
@@ -194,6 +196,7 @@ const errorProductCard = () => {
   )
 }
 
+/** Card that represent a product with its picture, title, rating, price etc... */
 export default function ProductCard({ loading, product }: Props) {
   if (loading) return loadingProductCard()
   if (product) return filledProductCard(product)

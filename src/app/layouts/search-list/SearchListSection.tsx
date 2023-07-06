@@ -12,7 +12,7 @@ export default function SearchListSection({ searchInput }: Props) {
     <section className="searchListSection">
       {!searchInput.search || searchInput.search.length === 0 ? (
         <Typography component="h2" variant="subtitle">
-          Aucune recherche effectuée.
+          No search done.
         </Typography>
       ) : process.env.NODE_ENV === 'production' ? (
         <ProdSearchListQueryProvider searchInput={searchInput} />

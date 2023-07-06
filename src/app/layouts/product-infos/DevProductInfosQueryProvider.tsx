@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import SearchList from './SearchList'
-import { getSearchProducts } from '@/data/MockedApi'
-import { SearchInputType } from '@/types'
+import { getProduct } from '@/data/MockedApi'
+import ProductInfos from './ProductInfos'
 
 type Props = {
-  searchInput: SearchInputType
+  productAsin: string
 }
 
 const fetchingQueryResult = {
@@ -13,8 +12,7 @@ const fetchingQueryResult = {
   data: undefined,
 }
 
-export default function DevSearchListQueryProvider({ searchInput }: Props) {
-  const { search, domain, sort } = searchInput
+export default function DevProductInfosQueryProvider({ productAsin }: Props) {
   const [queryResult, setQueryResult] = useState<{
     loading: boolean
     error: boolean
@@ -25,13 +23,13 @@ export default function DevSearchListQueryProvider({ searchInput }: Props) {
     setQueryResult(fetchingQueryResult)
 
     const fetchQueryResult = setTimeout(() => {
-      setQueryResult(getSearchProducts())
+      setQueryResult(getProduct())
     }, 2000)
-  }, [search, domain, sort])
+  }, [productAsin])
 
   return (
     <div>
-      <SearchList queryResult={queryResult} />
+      <ProductInfos queryResult={queryResult} />
     </div>
   )
 }

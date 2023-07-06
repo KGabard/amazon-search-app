@@ -1,4 +1,4 @@
-import { DomainCodeType, SortCodeType } from "./models/SearchModel"
+import { DomainCodeType, SortCodeType } from './models/SearchModel'
 
 export type ProductType = {
   asin: string
@@ -38,4 +38,35 @@ export type SearchInputType = {
   search: string
   domain: DomainCodeType
   sort: SortCodeType
+}
+
+export type ReviewType = {
+  id: string
+  body: string
+  rating: number
+  title: string
+}
+
+export type DetailedProductType = {
+  title: string
+  brand: string
+  mainImageUrl: string
+  reviewsTotal: number
+  ratingsTotal: number
+  rating: number
+  price: {
+    display: string
+  }
+  url: string
+  subtitle: string
+  reviewsPaginated: {
+    reviews: ReviewType[]
+  }
+  ratingsBreakdown: {
+    twoStarRatingsCount: number
+    threeStarRatingsCount: number
+    oneStarRatingsCount: number
+    fourStarRatingsCount: number
+    fiveStarRatingsCount: number
+  }
 }
