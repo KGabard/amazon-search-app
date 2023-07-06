@@ -1,12 +1,21 @@
 import ProductClass from '@/models/ProductModel'
 import { theme } from '@/styles/theme'
-import { Box, Paper, Rating, SxProps, Theme, Typography } from '@mui/material'
+import {
+  Box,
+  Paper,
+  Rating,
+  Skeleton,
+  SxProps,
+  Theme,
+  Typography,
+} from '@mui/material'
 import StarBorderOutlinedIcon from '@mui/icons-material/StarBorderOutlined'
 import Image from 'next/image'
 import Link from 'next/link'
 
 type Props = {
-  product: ProductClass
+  loading: boolean
+  product?: ProductClass
 }
 
 const containerStyle: SxProps<Theme> = {
@@ -23,6 +32,9 @@ const containerStyle: SxProps<Theme> = {
   overflow: 'hidden',
   borderRadius: 4,
   boxShadow: '5px 5px 16px rgba(0,0,0,0.5)',
+}
+
+const hoverEffectStyle: SxProps<Theme> = {
   transition: 'transform 0.3s ease-in-out',
   transform: 'scale(1)',
   cursor: 'pointer',
@@ -51,7 +63,7 @@ const titleStyle: SxProps<Theme> = {
 
 const ratingContainerStyle: SxProps<Theme> = {
   display: 'flex',
-  gap: 1,
+  gap: 0.5,
   alignItems: 'center',
 }
 
@@ -62,7 +74,7 @@ const infoContainerStyle: SxProps<Theme> = {
   flex: '1 1 0px',
 }
 
-export default function ProductCard({ product }: Props) {
+const filledProductCard = (product: ProductClass) => {
   return (
     <Link
       href={product.url}
@@ -73,7 +85,7 @@ export default function ProductCard({ product }: Props) {
         width: 'fit-content',
       }}
     >
-      <Paper sx={containerStyle}>
+      <Paper sx={{ ...containerStyle, ...hoverEffectStyle }}>
         <Box sx={imageStyle}>
           <Image
             src={product.picture}
@@ -108,8 +120,15 @@ export default function ProductCard({ product }: Props) {
               />
               <Typography
                 component={'p'}
+                variant="body"
+              >{`${product.rating}`}</Typography>
+              <Typography
+                component={'p'}
                 variant="bodySmallItalic"
-              >{`${product.ratingsCount}`}</Typography>
+                sx={{
+                  ml: 1,
+                }}
+              >{`(${product.ratingsCount})`}</Typography>
             </Box>
           )}
           <Typography
@@ -123,4 +142,60 @@ export default function ProductCard({ product }: Props) {
       </Paper>
     </Link>
   )
+}
+
+const loadingProductCard = () => {
+  return (
+    <Paper sx={containerStyle}>
+      <Skeleton variant="rectangular" sx={imageStyle} />
+      <Box sx={infoContainerStyle}>
+        <Skeleton
+          variant="text"
+          sx={{
+            fontSize: '1.5rem',
+            backgroundColor: theme.palette.white.light,
+          }}
+        />
+        <Skeleton
+          variant="text"
+          sx={{
+            fontSize: '1.5rem',
+            width: '60%',
+            backgroundColor: theme.palette.white.light,
+          }}
+        />
+        <Skeleton
+          variant="text"
+          sx={{
+            fontSize: '1.5rem',
+            width: '40px',
+            alignSelf: 'end',
+            marginTop: 'auto',
+            backgroundColor: theme.palette.white.light,
+          }}
+        />
+      </Box>
+    </Paper>
+  )
+}
+
+const errorProductCard = () => {
+  return (
+    <Paper
+      sx={{ ...containerStyle, backgroundColor: theme.palette.error.main }}
+    >
+      <Box sx={{ ...imageStyle, opacity: '0.5' }}></Box>
+      <Box sx={infoContainerStyle}>
+        <Typography component={'h2'} variant="body" sx={titleStyle}>
+          Error ! No product found !
+        </Typography>
+      </Box>
+    </Paper>
+  )
+}
+
+export default function ProductCard({ loading, product }: Props) {
+  if (loading) return loadingProductCard()
+  if (product) return filledProductCard(product)
+  return errorProductCard()
 }

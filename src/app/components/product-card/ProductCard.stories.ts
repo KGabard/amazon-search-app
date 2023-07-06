@@ -14,10 +14,24 @@ type Story = StoryObj<typeof ProductCard>
 
 const { data } = getSearchProducts()
 
-const firstProductData = data.amazonProductSearchResults.productResults.results[20]
+const productDataExample =
+  data.amazonProductSearchResults.productResults.results[20]
 
 export const Base: Story = {
   args: {
-    product: new ProductClass(firstProductData)
+    loading: false,
+    product: new ProductClass(productDataExample),
+  },
+}
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+  },
+}
+
+export const Error: Story = {
+  args: {
+    loading: false,
   },
 }
