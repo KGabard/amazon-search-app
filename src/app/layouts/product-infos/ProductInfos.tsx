@@ -6,6 +6,7 @@ import { theme } from '@/styles/theme'
 import { DetailedProductClass } from '@/models/ProductModel'
 import RatingsBreakdown from '@/app/components/ratings-breakdown/RatingsBreakdown'
 import Link from 'next/link'
+import ReviewCard from '@/app/components/review-card/ReviewCard'
 
 type Props = {
   queryResult:
@@ -58,7 +59,7 @@ export default function ProductInfos({ queryResult }: Props) {
     )
 
   return (
-    <Grid container columnSpacing={6} rowSpacing={10}>
+    <Grid container columnSpacing={8} rowSpacing={10}>
       <Grid item xs={5}>
         <Box sx={imageStyle}>
           <Image
@@ -90,7 +91,7 @@ export default function ProductInfos({ queryResult }: Props) {
             Search on{' '}
             <Link
               href={product.url}
-              target='_blank'
+              target="_blank"
               style={{
                 color: theme.palette.primary.main,
                 textDecoration: 'underline',
@@ -119,13 +120,53 @@ export default function ProductInfos({ queryResult }: Props) {
                 textUnderlineOffset: '8px',
               }}
             >
-              Notation :
+              Ratings :
             </Typography>
             <RatingsBreakdown
               rating={product.rating}
               ratingsCount={product.ratingsCount}
               ratingsBreakdown={product.ratingsBreakdown}
             />
+          </Box>
+        )}
+      </Grid>
+      <Grid item xs={8}>
+        {product.reviews.length > 0 && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 4,
+            }}
+          >
+            <Typography
+              component={'h2'}
+              variant="title"
+              sx={{
+                textDecoration: 'underline',
+                textDecorationThickness: '2px',
+                textUnderlineOffset: '8px',
+              }}
+            >
+              Reviews :
+            </Typography>
+            <ul
+              style={{
+                listStyle: 'none',
+                padding: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '48px',
+              }}
+            >
+              {product.reviews.map((review) => {
+                return (
+                  <li key={review.id}>
+                    <ReviewCard review={review} />
+                  </li>
+                )
+              })}
+            </ul>
           </Box>
         )}
       </Grid>

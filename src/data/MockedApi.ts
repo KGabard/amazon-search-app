@@ -2213,6 +2213,7 @@ export function getProduct() {
 
   const data = {
     amazonProduct: {
+      asin: 'B0BDHWDR12',
       title:
         'Apple AirPods Pro (2nd Generation) Wireless Earbuds, Up to 2X More Active Noise Cancelling, Adaptive Transparency, Personalized Spatial Audio, MagSafe Charging Case, Bluetooth Headphones for iPhone',
       brand: 'Apple',

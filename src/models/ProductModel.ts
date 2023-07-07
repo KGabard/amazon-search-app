@@ -57,7 +57,7 @@ export class DetailedProductClass extends ProductClass {
   }
 
   get reviews() {
-    return this._detailedProduct.reviewsPaginated
+    return this._detailedProduct.reviewsPaginated.reviews
   }
 
   get ratingsBreakdown() {

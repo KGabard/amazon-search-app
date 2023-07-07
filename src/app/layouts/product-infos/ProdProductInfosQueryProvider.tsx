@@ -5,6 +5,7 @@ import ProductInfos from './ProductInfos'
 const GET_SEARCH_PRODUCTS = gql`
   query GetProduct($productAsin: String!) {
     amazonProduct(input: { asinLookup: { asin: $productAsin } }) {
+      asin
       title
       brand
       mainImageUrl
