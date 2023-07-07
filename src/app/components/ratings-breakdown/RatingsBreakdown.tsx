@@ -49,16 +49,40 @@ const CustomLinearProgress = styled(LinearProgress)(({ theme }) => ({
   },
 }))
 
+const starPercentageBar = (percentage: number, index: number) => {
+  return (
+    <li
+      key={index}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px',
+      }}
+    >
+      <Typography component={'span'} variant="body">
+        {index + 1}
+      </Typography>
+      <StarIcon style={{ color: theme.palette.gold.main }} />
+      <CustomLinearProgress variant="determinate" value={percentage} />
+      <Typography component={'span'} variant="bodySmallItalic">{`${Math.round(
+        percentage
+      )}%`}</Typography>
+    </li>
+  )
+}
+
 export default function RatingsBreakdown({
   rating,
   ratingsCount,
   ratingsBreakdown,
 }: Props) {
+  const ratingsBreakdownCount = ratingsBreakdown.reduce(
+    (acc, value) => acc + value,
+    0
+  ) // Sometimes ratingsCount is not equal to ratingsBreakdownCount that's why it better to do the math
+
   return (
     <Box sx={containerStyle}>
-      <Typography component={'h2'} variant="subtitle">
-        Notation :
-      </Typography>
       <Box
         sx={{
           display: 'flex',
@@ -99,27 +123,8 @@ export default function RatingsBreakdown({
         }}
       >
         {ratingsBreakdown.map((value, index) => {
-          const percentage = (value / ratingsCount) * 100
-          return (
-            <li
-              key={index}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-              }}
-            >
-              <Typography component={'span'} variant="body">
-                {index + 1}
-              </Typography>
-              <StarIcon style={{ color: theme.palette.gold.main }} />
-              <CustomLinearProgress variant="determinate" value={percentage} />
-              <Typography
-                component={'span'}
-                variant="bodySmallItalic"
-              >{`${Math.round(percentage)}%`}</Typography>
-            </li>
-          )
+          const percentage = (value / ratingsBreakdownCount) * 100
+          return starPercentageBar(percentage, index)
         })}
       </ul>
     </Box>
