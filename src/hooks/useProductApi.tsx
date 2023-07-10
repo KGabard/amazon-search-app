@@ -1,4 +1,4 @@
-import { getProduct } from '@/data/MockedApi'
+import { getProductData } from '@/data/MockedApi'
 import { DetailedProductType } from '@/types'
 import { QueryResult, gql, useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
@@ -70,7 +70,7 @@ export default function useProductApi(productAsin: string): ProductApiType {
         await new Promise((resolve) => setTimeout(resolve, 2000))
         // Simulate successful API response
         const response: { amazonProduct: DetailedProductType } =
-          getProduct().data // Define your response data here
+          getProductData() // Define your response data here
 
         setMockedApiResults({
           ...mockedApiResults,

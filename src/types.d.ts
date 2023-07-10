@@ -13,13 +13,13 @@ export type ProductType = {
 }
 
 export type PageType = {
-  currentPage: 1
-  totalPages: 20
+  currentPage: number
+  totalPages: number
   hasNextPage: boolean
   hasPrevPage: boolean
 }
 
-export type ProductResultsType = {
+export type SearchProductsResultsType = {
   pageInfo: PageType
   results: ProductType[]
 }

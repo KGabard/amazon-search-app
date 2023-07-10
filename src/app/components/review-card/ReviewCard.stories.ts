@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react'
 import ReviewCard from './ReviewCard'
-import { getProduct } from '@/data/MockedApi'
+import { getProductData } from '@/data/MockedApi'
 import { DetailedProductClass } from '@/models/ProductModel'
 import { DetailedProductType } from '@/types'
 
@@ -14,7 +14,7 @@ const meta: Meta<typeof ReviewCard> = {
 export default meta
 type Story = StoryObj<typeof ReviewCard>
 
-const productData: DetailedProductType = getProduct().data?.amazonProduct
+const productData: DetailedProductType = getProductData().amazonProduct
 const product = new DetailedProductClass(productData)
 const review = product.reviews[0]
 

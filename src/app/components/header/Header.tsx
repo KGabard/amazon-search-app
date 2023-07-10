@@ -17,6 +17,7 @@ export default function Header() {
           sx={{
             backgroundColor: theme.palette.primary.main,
             color: theme.palette.white.main,
+            height: 'var(--header-height)',
           }}
         >
           <Typography component="h1" variant="title" sx={{ flexGrow: 1 }}>

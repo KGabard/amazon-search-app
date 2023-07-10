@@ -178,5 +178,5 @@ export default function ProductInfos({ productAsin }: Props) {
   if (productAsin && !loading && !error && data)
     content = ProductContent(new DetailedProductClass(data?.amazonProduct))
 
-  return <section className="searchListSection">{content}</section>
+  return <section className="productInfosSection">{content}</section>
 }
