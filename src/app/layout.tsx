@@ -24,8 +24,11 @@ const httpLink = createHttpLink({
 })
 
 const authLink = setContext((_, { headers }) => {
-  // get the authentication token
-  const token = process.env.NEXT_PUBLIC_CANOPY_API_TOKEN
+  // get the authentication token (only in production env)
+  const token =
+    process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_CANOPY_API_TOKEN
+      : ''
 
   // return the headers to the context so httpLink can read them
   return {

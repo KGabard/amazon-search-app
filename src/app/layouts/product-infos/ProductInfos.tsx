@@ -1,27 +1,12 @@
+import useProductApi from '@/hooks/useProductApi'
 import { Box, Grid, SxProps, Theme, Typography } from '@mui/material'
-import { ApolloError, QueryResult } from '@apollo/client'
-import { DetailedProductType } from '@/types'
+import { ApolloError } from '@apollo/client'
 import Image from 'next/image'
 import { theme } from '@/styles/theme'
 import { DetailedProductClass } from '@/models/ProductModel'
 import RatingsBreakdown from '@/app/components/ratings-breakdown/RatingsBreakdown'
 import Link from 'next/link'
 import ReviewCard from '@/app/components/review-card/ReviewCard'
-
-type Props = {
-  queryResult:
-    | QueryResult<
-        any,
-        {
-          productAsin: string
-        }
-      >
-    | {
-        data: any
-        loading: boolean
-        error: boolean | ApolloError | undefined
-      }
-}
 
 const imageStyle: SxProps<Theme> = {
   position: 'relative',
@@ -34,30 +19,33 @@ const imageStyle: SxProps<Theme> = {
   boxShadow: '5px 5px 20px rgba(0,0,0,0.5)',
 }
 
-export default function ProductInfos({ queryResult }: Props) {
-  const { data, loading, error } = queryResult
+function NoProductAsinContent() {
+  return (
+    <Typography component="h2" variant="subtitle">
+      No product asin given.
+    </Typography>
+  )
+}
 
-  console.log(data)
+function LoadingContent() {
+  return (
+    <Typography component="p" variant="body">
+      Loading...
+    </Typography>
+  )
+}
 
-  const productData: DetailedProductType = data?.amazonProduct
-  const product = new DetailedProductClass(productData)
+function ErrorContent(error: boolean | ApolloError | undefined) {
+  return (
+    <Typography component="p" variant="body">
+      {error instanceof ApolloError
+        ? `Error while fetching data : ${error.message}`
+        : 'Error while fetching data.'}
+    </Typography>
+  )
+}
 
-  if (loading)
-    return (
-      <Typography component="p" variant="body">
-        Loading...
-      </Typography>
-    )
-
-  if (error)
-    return (
-      <Typography component="p" variant="body">
-        {error instanceof ApolloError
-          ? `Error while fetching data : ${error.message}`
-          : 'Error while fetching data.'}
-      </Typography>
-    )
-
+function ProductContent(product: DetailedProductClass) {
   return (
     <Grid container columnSpacing={8} rowSpacing={10}>
       <Grid item xs={5}>
@@ -172,4 +160,23 @@ export default function ProductInfos({ queryResult }: Props) {
       </Grid>
     </Grid>
   )
+}
+
+type Props = {
+  productAsin: string
+}
+
+export default function ProductInfos({ productAsin }: Props) {
+  const { loading, error, data } = useProductApi(productAsin)
+
+  let content: JSX.Element = NoProductAsinContent()
+
+  if (productAsin && loading) content = LoadingContent()
+
+  if (productAsin && error) content = ErrorContent(error)
+
+  if (productAsin && !loading && !error && data)
+    content = ProductContent(new DetailedProductClass(data?.amazonProduct))
+
+  return <section className="searchListSection">{content}</section>
 }
