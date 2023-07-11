@@ -11,8 +11,10 @@ import {
   ApolloProvider,
   gql,
   createHttpLink,
+  defaultDataIdFromObject,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
+import ProductsListContextProvider from '@/context/ProductsListContextProvider'
 
 export const metadata = {
   title: 'Amazon search',
@@ -22,6 +24,9 @@ export const metadata = {
 const httpLink = createHttpLink({
   uri: 'https://graphql.canopyapi.co/',
 })
+
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! cache data ??
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! useLazyQuery ??
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token (only in production env)
@@ -39,9 +44,20 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
+type AmazonProductSearchInput = {
+  searchTerm: string
+  domain: string
+}
+
+type ProductResultsInput = {
+  page: string
+  sort: string
+}
+
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
+  connectToDevTools: true,
 })
 
 export default function RootLayout({
@@ -52,18 +68,20 @@ export default function RootLayout({
   return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <html lang="en">
-          <body
-            className={`${montserrat.variable} ${share.variable} ${raleway.variable}`}
-            style={{
-              backgroundColor: theme.palette.neutral.secondary,
-              color: theme.palette.white.main,
-            }}
-          >
-            <Header />
-            {children}
-          </body>
-        </html>
+        <ProductsListContextProvider>
+          <html lang="en">
+            <body
+              className={`${montserrat.variable} ${share.variable} ${raleway.variable}`}
+              style={{
+                backgroundColor: theme.palette.neutral.secondary,
+                color: theme.palette.white.main,
+              }}
+            >
+              <Header />
+              {children}
+            </body>
+          </html>
+        </ProductsListContextProvider>
       </ApolloProvider>
     </ThemeProvider>
   )

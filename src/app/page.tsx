@@ -11,7 +11,7 @@ import SearchModel from '@/models/SearchModel'
 export default function Home() {
   const [searchInput, setSearchInput] = useState<SearchInputType>(new SearchModel(initialValues).searchData)
 
-  // console.log(searchInput)
+  console.log(searchInput)
 
   return (
     <main className="main">

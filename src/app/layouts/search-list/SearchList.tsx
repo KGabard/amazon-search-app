@@ -4,6 +4,8 @@ import { Grid, Typography } from '@mui/material'
 import { ApolloError } from '@apollo/client'
 import ProductCard from '@/app/components/product-card/ProductCard'
 import { ProductClass } from '@/models/ProductModel'
+import { useContext, useEffect } from 'react'
+import { productsListContext } from '@/context/ProductsListContextProvider'
 
 const gridContainerStyle = {
   display: 'grid',
@@ -64,10 +66,22 @@ type Props = {
 export default function SearchList({ searchInput }: Props) {
   const { loading, error, data } = useSearchProductsApi(searchInput)
 
+  // const { fetchedData, setFetchData } = useContext(productsListContext)
+
+  // useEffect(() => {
+  //   setFetchData({ loading, error, data })
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [loading, error, data])
+
+  // console.log('fetchedData', fetchedData)
+
   if (loading) return LoadingContent()
 
   if (error) return ErrorContent(error)
 
   if (!loading && !error && data)
-    return SearchListContent(data?.amazonProductSearchResults.productResults)
+    return SearchListContent(
+      data?.amazonProductSearchResults.productResults
+    )
 }
