@@ -1,5 +1,5 @@
 import useProductApi from '@/hooks/useProductApi'
-import { Box, Grid, SxProps, Theme, Typography } from '@mui/material'
+import { Box, Grid, Skeleton, SxProps, Theme, Typography } from '@mui/material'
 import { ApolloError } from '@apollo/client'
 import Image from 'next/image'
 import { theme } from '@/styles/theme'
@@ -29,9 +29,126 @@ function NoProductAsinContent() {
 
 function LoadingContent() {
   return (
-    <Typography component="p" variant="body">
-      Loading...
-    </Typography>
+    <Grid container columnSpacing={8} rowSpacing={10}>
+      <Grid item xs={5}>
+        <Skeleton variant="rectangular" sx={imageStyle} />
+      </Grid>
+      <Grid item xs={7}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: `calc(${theme.typography.title.fontSize}*2)`,
+              backgroundColor: theme.palette.white.light,
+              mt: '-16px',
+            }}
+          />
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: `calc(${theme.typography.title.fontSize}*2)`,
+              backgroundColor: theme.palette.white.light,
+              mt: '-24px',
+            }}
+          />
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: `calc(${theme.typography.title.fontSize}*2)`,
+              backgroundColor: theme.palette.white.light,
+              mt: '-24px',
+              maxWidth: '75%',
+            }}
+          />
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: `calc(${theme.typography.subtitle.fontSize}*2)`,
+              backgroundColor: theme.palette.white.light,
+              maxWidth: '200px',
+            }}
+          />
+          <Skeleton
+            variant="text"
+            sx={{
+              fontSize: `calc(${theme.typography.bodyItalic.fontSize}*2)`,
+              backgroundColor: theme.palette.white.light,
+              maxWidth: '164px',
+            }}
+          />
+        </Box>
+      </Grid>
+      <Grid item xs={4}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4,
+          }}
+        >
+          <Typography
+            component={'h2'}
+            variant="title"
+            sx={{
+              textDecoration: 'underline',
+              textDecorationThickness: '2px',
+              textUnderlineOffset: '8px',
+            }}
+          >
+            Ratings :
+          </Typography>
+          {/* <RatingsBreakdown
+              rating={product.rating}
+              ratingsCount={product.ratingsCount}
+              ratingsBreakdown={product.ratingsBreakdown}
+            /> */}
+        </Box>
+      </Grid>
+      <Grid item xs={8}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 4,
+          }}
+        >
+          <Typography
+            component={'h2'}
+            variant="title"
+            sx={{
+              textDecoration: 'underline',
+              textDecorationThickness: '2px',
+              textUnderlineOffset: '8px',
+            }}
+          >
+            Reviews :
+          </Typography>
+          {/* <ul
+            style={{
+              listStyle: 'none',
+              padding: 0,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '48px',
+            }}
+          >
+            {product.reviews.map((review) => {
+              return (
+                <li key={review.id}>
+                  <ReviewCard review={review} />
+                </li>
+              )
+            })}
+          </ul> */}
+        </Box>
+      </Grid>
+    </Grid>
   )
 }
 
