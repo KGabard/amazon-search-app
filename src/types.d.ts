@@ -24,12 +24,6 @@ export type SearchProductsResultsType = {
   results: ProductType[]
 }
 
-export type SearchInputType = {
-  search: string
-  domain: DomainCodeType
-  sort: SortCodeType
-}
-
 export type ReviewType = {
   id: string
   body: string

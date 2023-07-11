@@ -1,22 +1,16 @@
-import React, { CSSProperties, Dispatch, SetStateAction } from 'react'
+import React, { CSSProperties, useContext } from 'react'
 import { Formik, Form, FormikHelpers } from 'formik'
 import { Button, Grid, Typography } from '@mui/material'
-import { SearchInputType } from '@/types'
 import MyTextField from '../text-field/MyTextField'
 import { theme } from '@/styles/theme'
 import * as Yup from 'yup'
 import MySelectField from '../select-field/MySelectField'
-import SearchModel, {
+import {
   DomainNameType,
-  SearchData,
+  SearchDataType,
   SortNameType,
 } from '@/models/SearchModel'
-
-export const initialValues: SearchData = {
-  search: '',
-  domain: '',
-  sort: '',
-}
+import { searchDataContext } from '@/context/SearchDataContextProvider'
 
 const validationSchema = Yup.object({
   search: Yup.string()
@@ -46,24 +40,22 @@ const sectionStyle: CSSProperties = {
   width: '100%',
 }
 
-type Props = {
-  setSearchInput: Dispatch<SetStateAction<SearchInputType>>
-}
+export default function SearchForm() {
+  const { searchData, setSearchData } = useContext(searchDataContext)
 
-export default function SearchForm({ setSearchInput }: Props) {
   const handleSubmit = (
-    values: SearchData,
-    actions: FormikHelpers<SearchData>
+    values: SearchDataType,
+    actions: FormikHelpers<SearchDataType>
   ) => {
     console.log(values)
-    setSearchInput(new SearchModel(values).searchData)
+    setSearchData(values)
     actions.setSubmitting(false)
   }
 
   return (
     <section className="search-input" style={sectionStyle}>
       <Formik
-        initialValues={initialValues}
+        initialValues={searchData}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >

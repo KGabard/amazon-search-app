@@ -9,12 +9,10 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  gql,
   createHttpLink,
-  defaultDataIdFromObject,
 } from '@apollo/client'
 import { setContext } from '@apollo/client/link/context'
-import ProductsListContextProvider from '@/context/ProductsListContextProvider'
+import SearchDataContextProvider from '@/context/SearchDataContextProvider'
 
 export const metadata = {
   title: 'Amazon search',
@@ -24,9 +22,6 @@ export const metadata = {
 const httpLink = createHttpLink({
   uri: 'https://graphql.canopyapi.co/',
 })
-
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! cache data ??
-//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! useLazyQuery ??
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token (only in production env)
@@ -44,16 +39,6 @@ const authLink = setContext((_, { headers }) => {
   }
 })
 
-type AmazonProductSearchInput = {
-  searchTerm: string
-  domain: string
-}
-
-type ProductResultsInput = {
-  page: string
-  sort: string
-}
-
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
@@ -68,7 +53,7 @@ export default function RootLayout({
   return (
     <ThemeProvider theme={theme}>
       <ApolloProvider client={client}>
-        <ProductsListContextProvider>
+        <SearchDataContextProvider>
           <html lang="en">
             <body
               className={`${montserrat.variable} ${share.variable} ${raleway.variable}`}
@@ -81,7 +66,7 @@ export default function RootLayout({
               {children}
             </body>
           </html>
-        </ProductsListContextProvider>
+        </SearchDataContextProvider>
       </ApolloProvider>
     </ThemeProvider>
   )

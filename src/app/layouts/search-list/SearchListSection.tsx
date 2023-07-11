@@ -1,6 +1,7 @@
-import { SearchInputType } from '@/types'
 import { Typography } from '@mui/material'
 import SearchList from './SearchList'
+import { useContext } from 'react'
+import { searchDataContext } from '@/context/SearchDataContextProvider'
 
 function InvalidSearchContent() {
   return (
@@ -10,17 +11,15 @@ function InvalidSearchContent() {
   )
 }
 
-type Props = {
-  searchInput: SearchInputType
-}
+export default function SearchListSection() {
+  const { searchData } = useContext(searchDataContext)
 
-export default function SearchListSection({ searchInput }: Props) {
-  const isSearchValid = searchInput.search && searchInput.search.length > 0
+  const isSearchValid = searchData.search && searchData.search.length > 0
 
   return (
     <section className="productInfosSection">
       {isSearchValid ? (
-        <SearchList searchInput={searchInput} />
+        <SearchList />
       ) : (
         InvalidSearchContent()
       )}

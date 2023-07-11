@@ -1,11 +1,12 @@
-import { SearchInputType, SearchProductsResultsType } from '@/types'
+import { SearchProductsResultsType } from '@/types'
 import useSearchProductsApi from '@/hooks/useSearchProductsApi'
 import { Grid, Typography } from '@mui/material'
 import { ApolloError } from '@apollo/client'
 import ProductCard from '@/app/components/product-card/ProductCard'
 import { ProductClass } from '@/models/ProductModel'
-import { useContext, useEffect } from 'react'
-import { productsListContext } from '@/context/ProductsListContextProvider'
+import { useContext } from 'react'
+import { searchDataContext } from '@/context/SearchDataContextProvider'
+import SearchModel from '@/models/SearchModel'
 
 const gridContainerStyle = {
   display: 'grid',
@@ -59,29 +60,17 @@ function SearchListContent(searchProductsResults: SearchProductsResultsType) {
   )
 }
 
-type Props = {
-  searchInput: SearchInputType
-}
+export default function SearchList() {
+  const { searchData } = useContext(searchDataContext)
 
-export default function SearchList({ searchInput }: Props) {
-  const { loading, error, data } = useSearchProductsApi(searchInput)
-
-  // const { fetchedData, setFetchData } = useContext(productsListContext)
-
-  // useEffect(() => {
-  //   setFetchData({ loading, error, data })
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [loading, error, data])
-
-  // console.log('fetchedData', fetchedData)
+  const { loading, error, data } = useSearchProductsApi(
+    new SearchModel(searchData).searchData
+  )
 
   if (loading) return LoadingContent()
 
   if (error) return ErrorContent(error)
 
   if (!loading && !error && data)
-    return SearchListContent(
-      data?.amazonProductSearchResults.productResults
-    )
+    return SearchListContent(data?.amazonProductSearchResults.productResults)
 }

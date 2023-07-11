@@ -1,5 +1,3 @@
-import { SearchInputType } from '@/types'
-
 export type DomainNameType = 'USA' | 'United Kingdom' | 'France' | ''
 export type DomainCodeType = 'US' | 'UK' | 'FR' | ''
 
@@ -21,10 +19,16 @@ export type SortCodeType =
 type DomainMatchType = [DomainNameType, DomainCodeType]
 type SortMatchType = [SortNameType, SortCodeType]
 
-export type SearchData = {
+export type SearchDataType = {
   search: string
   domain: DomainNameType
   sort: SortNameType
+}
+
+export type SearchInputType = {
+  search: string
+  domain: DomainCodeType
+  sort: SortCodeType
 }
 
 const DomainsMatchList: DomainMatchType[] = [
@@ -42,9 +46,9 @@ const SortsMatchList: SortMatchType[] = [
 ]
 
 export default class SearchModel {
-  private _searchData: SearchData
+  private _searchData: SearchDataType
 
-  constructor(searchData: SearchData) {
+  constructor(searchData: SearchDataType) {
     this._searchData = searchData
   }
 

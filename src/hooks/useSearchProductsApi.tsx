@@ -1,7 +1,7 @@
 import { getSearchProductsData } from '@/data/MockedApi'
-import { DomainCodeType, SortCodeType } from '@/models/SearchModel'
-import { SearchInputType, SearchProductsResultsType } from '@/types'
-import { QueryResult, gql, useLazyQuery, useQuery } from '@apollo/client'
+import { SearchInputType } from '@/models/SearchModel'
+import { SearchProductsResultsType } from '@/types'
+import { gql, useLazyQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
 
 const GET_SEARCH_PRODUCTS = gql`
@@ -52,12 +52,16 @@ type MockedApiType = {
     | undefined
 }
 
+const initialMockedApiResults = {
+  loading: true,
+  error: false,
+  data: undefined,
+}
+
 export default function useSearchProductsApi(searchInput: SearchInputType) {
-  const [mockedApiResults, setMockedApiResults] = useState<MockedApiType>({
-    loading: true,
-    error: false,
-    data: undefined,
-  })
+  const [mockedApiResults, setMockedApiResults] = useState<MockedApiType>(
+    initialMockedApiResults
+  )
 
   const { search, domain, sort } = searchInput
 
@@ -67,6 +71,8 @@ export default function useSearchProductsApi(searchInput: SearchInputType) {
   >(GET_SEARCH_PRODUCTS)
 
   async function fetchMockedApi() {
+    setMockedApiResults(initialMockedApiResults)
+
     try {
       // Simulate API call delay and successful API response
       const response: {
@@ -96,7 +102,7 @@ export default function useSearchProductsApi(searchInput: SearchInputType) {
     else fetchMockedApi()
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [search, domain, sort])
 
   return process.env.NODE_ENV === 'production'
     ? amazonApiResults
