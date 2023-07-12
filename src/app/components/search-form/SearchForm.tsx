@@ -61,8 +61,8 @@ export default function SearchForm() {
       >
         {({ values, errors, isSubmitting, touched }) => (
           <Form autoComplete="off">
-            <Grid container direction="column" spacing={2}>
-              <Grid item>
+            <Grid container direction="row" spacing={2}>
+              <Grid item xs={12}>
                 <MyTextField
                   name="search"
                   label="Search"
@@ -74,7 +74,7 @@ export default function SearchForm() {
                 />
               </Grid>
 
-              <Grid item sx={{ display: 'flex', gap: 2 }}>
+              <Grid item xs={12} sm={5} md={3.5} lg={3}>
                 <MySelectField
                   options={domainOptions}
                   muiAttributes={{
@@ -83,9 +83,13 @@ export default function SearchForm() {
                     error: errors.domain && touched.domain,
                     helperText:
                       errors.domain && touched.domain ? errors.domain : '',
-                    style: { width: '200px' },
+                    // style: { width: '200px' },
+                    fullWidth: true,
                   }}
                 />
+              </Grid>
+
+              <Grid item xs={12} sm={5} md={3.5} lg={3}>
                 <MySelectField
                   options={sortOptions}
                   muiAttributes={{
@@ -93,15 +97,18 @@ export default function SearchForm() {
                     label: 'Sort',
                     error: errors.sort && touched.sort,
                     helperText: errors.sort && touched.sort ? errors.sort : '',
-                    style: { width: '200px' },
+                    // style: { width: '200px' },
+                    fullWidth: true,
                   }}
                 />
               </Grid>
 
               <Grid
                 item
+                xs={12}
                 sx={{
-                  alignSelf: 'end',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
                 }}
               >
                 <Button
