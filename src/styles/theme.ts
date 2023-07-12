@@ -48,12 +48,14 @@ declare module '@mui/material/styles' {
     primary?: string
     secondary?: string
     tertiary?: string
+    transparent?: string
   }
 
   interface SimplePaletteColorOptions {
     primary?: string
     secondary?: string
     tertiary?: string
+    transparent?: string
   }
 }
 
@@ -65,6 +67,7 @@ export const theme = createTheme({
     white: {
       light: '#FEFEFE',
       main: '#F5F5F5',
+      transparent: 'rgba(255,255,255,0.5)',
     },
     gold: {
       main: '#ffc02d',

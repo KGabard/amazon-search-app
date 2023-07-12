@@ -6,10 +6,13 @@ import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 
+import { usePathname } from 'next/navigation'
+
 import { useTheme } from '@mui/material/styles'
 
 export default function Header() {
   const theme = useTheme()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">

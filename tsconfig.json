@@ -30,6 +30,6 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "graphql.config.js"
-  ],
+, "src/app/components/button/Button.stories.js"  ],
   "exclude": ["node_modules"]
 }

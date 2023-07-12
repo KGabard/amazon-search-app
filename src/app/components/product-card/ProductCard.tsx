@@ -149,13 +149,16 @@ const filledProductCard = (product: ProductClass) => {
 const loadingProductCard = () => {
   return (
     <Paper sx={containerStyle}>
-      <Skeleton variant="rectangular" sx={imageStyle} />
+      <Skeleton
+        variant="rectangular"
+        sx={{ ...imageStyle, backgroundColor: theme.palette.white.transparent }}
+      />
       <Box sx={infoContainerStyle}>
         <Skeleton
           variant="text"
           sx={{
             fontSize: '1.5rem',
-            backgroundColor: theme.palette.white.light,
+            backgroundColor: theme.palette.white.transparent,
           }}
         />
         <Skeleton
@@ -163,7 +166,7 @@ const loadingProductCard = () => {
           sx={{
             fontSize: '1.5rem',
             width: '60%',
-            backgroundColor: theme.palette.white.light,
+            backgroundColor: theme.palette.white.transparent,
           }}
         />
         <Skeleton
@@ -173,7 +176,7 @@ const loadingProductCard = () => {
             width: '40px',
             alignSelf: 'end',
             marginTop: 'auto',
-            backgroundColor: theme.palette.white.light,
+            backgroundColor: theme.palette.white.transparent,
           }}
         />
       </Box>

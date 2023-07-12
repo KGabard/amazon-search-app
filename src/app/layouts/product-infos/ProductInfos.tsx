@@ -7,148 +7,25 @@ import { DetailedProductClass } from '@/models/ProductModel'
 import RatingsBreakdown from '@/app/components/ratings-breakdown/RatingsBreakdown'
 import Link from 'next/link'
 import ReviewCard from '@/app/components/review-card/ReviewCard'
+import ProductImage from '@/app/components/product-image/ProductImage'
+import ProductDescription from '@/app/components/product-description/ProductDescription'
 
-const imageStyle: SxProps<Theme> = {
-  position: 'relative',
-  width: '100%',
-  height: 'fit-content',
-  aspectRatio: 0.9,
-  borderRadius: 2,
-  overflow: 'hidden',
-  backgroundColor: theme.palette.white.light,
-  boxShadow: '5px 5px 20px rgba(0,0,0,0.5)',
-}
+// const imageStyle: SxProps<Theme> = {
+//   position: 'relative',
+//   width: '100%',
+//   height: 'fit-content',
+//   aspectRatio: 0.9,
+//   borderRadius: 2,
+//   overflow: 'hidden',
+//   backgroundColor: theme.palette.white.light,
+//   boxShadow: '5px 5px 20px rgba(0,0,0,0.5)',
+// }
 
 function NoProductAsinContent() {
   return (
     <Typography component="h2" variant="subtitle">
       No product asin given.
     </Typography>
-  )
-}
-
-function LoadingContent() {
-  return (
-    <Grid container columnSpacing={8} rowSpacing={10}>
-      <Grid item xs={5}>
-        <Skeleton variant="rectangular" sx={imageStyle} />
-      </Grid>
-      <Grid item xs={7}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          <Skeleton
-            variant="text"
-            sx={{
-              fontSize: `calc(${theme.typography.title.fontSize}*2)`,
-              backgroundColor: theme.palette.white.light,
-              mt: '-16px',
-            }}
-          />
-          <Skeleton
-            variant="text"
-            sx={{
-              fontSize: `calc(${theme.typography.title.fontSize}*2)`,
-              backgroundColor: theme.palette.white.light,
-              mt: '-24px',
-            }}
-          />
-          <Skeleton
-            variant="text"
-            sx={{
-              fontSize: `calc(${theme.typography.title.fontSize}*2)`,
-              backgroundColor: theme.palette.white.light,
-              mt: '-24px',
-              maxWidth: '75%',
-            }}
-          />
-          <Skeleton
-            variant="text"
-            sx={{
-              fontSize: `calc(${theme.typography.subtitle.fontSize}*2)`,
-              backgroundColor: theme.palette.white.light,
-              maxWidth: '200px',
-            }}
-          />
-          <Skeleton
-            variant="text"
-            sx={{
-              fontSize: `calc(${theme.typography.bodyItalic.fontSize}*2)`,
-              backgroundColor: theme.palette.white.light,
-              maxWidth: '164px',
-            }}
-          />
-        </Box>
-      </Grid>
-      <Grid item xs={4}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 4,
-          }}
-        >
-          <Typography
-            component={'h2'}
-            variant="title"
-            sx={{
-              textDecoration: 'underline',
-              textDecorationThickness: '2px',
-              textUnderlineOffset: '8px',
-            }}
-          >
-            Ratings :
-          </Typography>
-          {/* <RatingsBreakdown
-              rating={product.rating}
-              ratingsCount={product.ratingsCount}
-              ratingsBreakdown={product.ratingsBreakdown}
-            /> */}
-        </Box>
-      </Grid>
-      <Grid item xs={8}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 4,
-          }}
-        >
-          <Typography
-            component={'h2'}
-            variant="title"
-            sx={{
-              textDecoration: 'underline',
-              textDecorationThickness: '2px',
-              textUnderlineOffset: '8px',
-            }}
-          >
-            Reviews :
-          </Typography>
-          {/* <ul
-            style={{
-              listStyle: 'none',
-              padding: 0,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '48px',
-            }}
-          >
-            {product.reviews.map((review) => {
-              return (
-                <li key={review.id}>
-                  <ReviewCard review={review} />
-                </li>
-              )
-            })}
-          </ul> */}
-        </Box>
-      </Grid>
-    </Grid>
   )
 }
 
@@ -162,53 +39,35 @@ function ErrorContent(error: boolean | ApolloError | undefined) {
   )
 }
 
-function ProductContent(product: DetailedProductClass) {
+function ProductContent({
+  loading,
+  product,
+}: {
+  loading?: boolean
+  product?: DetailedProductClass
+}) {
   return (
     <Grid container columnSpacing={8} rowSpacing={10}>
       <Grid item xs={5}>
-        <Box sx={imageStyle}>
-          <Image
-            src={product.picture}
-            alt={product.title}
-            fill={true}
-            style={{
-              objectFit: 'contain',
-            }}
-            sizes={'(max-width: 768px) 100vw'}
-          />
-        </Box>
+        {loading ? (
+          <ProductImage loading />
+        ) : (
+          <ProductImage pictureUrl={product?.picture} title={product?.title} />
+        )}
       </Grid>
       <Grid item xs={7}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 2,
-          }}
-        >
-          <Typography component="p" variant="title">
-            {product.title}
-          </Typography>
-          <Typography component="p" variant="subtitle">
-            {`Brand : ${product.brand}`}
-          </Typography>
-          <Typography component={'p'} variant="bodyItalic">
-            Search on{' '}
-            <Link
-              href={product.url}
-              target="_blank"
-              style={{
-                color: theme.palette.primary.main,
-                textDecoration: 'underline',
-              }}
-            >
-              Amazon
-            </Link>
-          </Typography>
-        </Box>
+        {loading ? (
+          <ProductDescription loading />
+        ) : (
+          <ProductDescription
+            title={product?.title}
+            brand={product?.brand}
+            url={product?.url}
+          />
+        )}
       </Grid>
       <Grid item xs={4}>
-        {product.rating && product.ratingsCount && (
+        {product?.rating && product?.ratingsCount && (
           <Box
             sx={{
               display: 'flex',
@@ -236,7 +95,7 @@ function ProductContent(product: DetailedProductClass) {
         )}
       </Grid>
       <Grid item xs={8}>
-        {product.reviews.length > 0 && (
+        {product && product.reviews.length > 0 && (
           <Box
             sx={{
               display: 'flex',
@@ -288,12 +147,14 @@ export default function ProductInfos({ productAsin }: Props) {
 
   let content: JSX.Element = NoProductAsinContent()
 
-  if (productAsin && loading) content = LoadingContent()
+  if (productAsin && loading) content = <ProductContent loading />
 
   if (productAsin && error) content = ErrorContent(error)
 
   if (productAsin && !loading && !error && data)
-    content = ProductContent(new DetailedProductClass(data?.amazonProduct))
+    content = (
+      <ProductContent product={new DetailedProductClass(data?.amazonProduct)} />
+    )
 
   return <section className="productInfosSection">{content}</section>
 }
