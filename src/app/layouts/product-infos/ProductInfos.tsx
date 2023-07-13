@@ -1,25 +1,11 @@
 import useProductApi from '@/hooks/useProductApi'
-import { Box, Grid, Skeleton, SxProps, Theme, Typography } from '@mui/material'
+import { Box, Grid, Typography } from '@mui/material'
 import { ApolloError } from '@apollo/client'
-import Image from 'next/image'
-import { theme } from '@/styles/theme'
 import { DetailedProductClass } from '@/models/ProductModel'
 import RatingsBreakdown from '@/app/components/ratings-breakdown/RatingsBreakdown'
-import Link from 'next/link'
 import ReviewCard from '@/app/components/review-card/ReviewCard'
 import ProductImage from '@/app/components/product-image/ProductImage'
 import ProductDescription from '@/app/components/product-description/ProductDescription'
-
-// const imageStyle: SxProps<Theme> = {
-//   position: 'relative',
-//   width: '100%',
-//   height: 'fit-content',
-//   aspectRatio: 0.9,
-//   borderRadius: 2,
-//   overflow: 'hidden',
-//   backgroundColor: theme.palette.white.light,
-//   boxShadow: '5px 5px 20px rgba(0,0,0,0.5)',
-// }
 
 function NoProductAsinContent() {
   return (
@@ -47,15 +33,20 @@ function ProductContent({
   product?: DetailedProductClass
 }) {
   return (
-    <Grid container columnSpacing={8} rowSpacing={10}>
-      <Grid item xs={5}>
+    <Grid
+      container
+      columnSpacing={{ xs: 4, md: 6, lg: 8 }}
+      rowSpacing={{ xs: 6, lg: 10 }}
+      justifyContent={'center'}
+    >
+      <Grid item xs={10} sm={8} md={5}>
         {loading ? (
           <ProductImage loading />
         ) : (
           <ProductImage pictureUrl={product?.picture} title={product?.title} />
         )}
       </Grid>
-      <Grid item xs={7}>
+      <Grid item xs={12} md={7}>
         {loading ? (
           <ProductDescription loading />
         ) : (
@@ -66,7 +57,7 @@ function ProductContent({
           />
         )}
       </Grid>
-      <Grid item xs={4}>
+      <Grid item xs={12} md={4.5} lg={4}>
         {product?.rating && product?.ratingsCount && (
           <Box
             sx={{
@@ -94,7 +85,7 @@ function ProductContent({
           </Box>
         )}
       </Grid>
-      <Grid item xs={8}>
+      <Grid item xs={12} md={7.5} lg={8}>
         {product && product.reviews.length > 0 && (
           <Box
             sx={{
