@@ -47,7 +47,7 @@ export default function SearchForm() {
     values: SearchDataType,
     actions: FormikHelpers<SearchDataType>
   ) => {
-    console.log(values)
+    // console.log(values)
     setSearchData(values)
     actions.setSubmitting(false)
   }

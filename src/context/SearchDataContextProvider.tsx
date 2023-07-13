@@ -29,6 +29,8 @@ export default function SearchDataContextProvider({ children }: Props) {
   const [searchData, setSearchData] =
     useState<SearchDataType>(initialSearchData)
 
+  console.log('Search : ', searchData)
+
   return (
     <searchDataContext.Provider
       value={{

@@ -1,6 +1,6 @@
 import { getProductData } from '@/data/MockedApi'
 import { DetailedProductType } from '@/types'
-import { QueryResult, gql, useQuery } from '@apollo/client'
+import { QueryResult, gql, useLazyQuery, useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
 
 const GET_SEARCH_PRODUCTS = gql`
@@ -37,12 +37,7 @@ const GET_SEARCH_PRODUCTS = gql`
   }
 `
 
-type AmazonApiType = QueryResult<
-  { amazonProduct: DetailedProductType },
-  {
-    productAsin: string
-  }
->
+type AmazonApiType = { amazonProduct: DetailedProductType }
 
 type MockedApiType = {
   loading: boolean
@@ -50,40 +45,45 @@ type MockedApiType = {
   data: { amazonProduct: DetailedProductType } | undefined
 }
 
-type ProductApiType = AmazonApiType | MockedApiType
-
-export default function useProductApi(productAsin: string): ProductApiType {
+export default function useProductApi(productAsin: string) {
   const [mockedApiResults, setMockedApiResults] = useState<MockedApiType>({
     loading: true,
     error: false,
     data: undefined,
   })
 
-  const amazonApiResults = useQuery(GET_SEARCH_PRODUCTS, {
-    variables: { productAsin },
-  })
+  const [fetchAmazonApi, amazonApiResults] = useLazyQuery<
+    AmazonApiType,
+    {
+      productAsin: string
+    }
+  >(GET_SEARCH_PRODUCTS)
+
+  async function fetchMockedApi() {
+    try {
+      // Simulate API call delay
+      await new Promise((resolve) => setTimeout(resolve, 2000))
+      // Simulate successful API response
+      const response: { amazonProduct: DetailedProductType } = getProductData() // Define your response data here
+
+      setMockedApiResults({
+        ...mockedApiResults,
+        loading: false,
+        data: response,
+      })
+    } catch (error) {
+      // Simulate error handling
+      setMockedApiResults({ ...mockedApiResults, error: true })
+    }
+  }
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        // Simulate API call delay
-        await new Promise((resolve) => setTimeout(resolve, 2000))
-        // Simulate successful API response
-        const response: { amazonProduct: DetailedProductType } =
-          getProductData() // Define your response data here
+    if (process.env.NODE_ENV === 'production')
+      fetchAmazonApi({
+        variables: { productAsin },
+      })
+    else fetchMockedApi()
 
-        setMockedApiResults({
-          ...mockedApiResults,
-          loading: false,
-          data: response,
-        })
-      } catch (error) {
-        // Simulate error handling
-        setMockedApiResults({ ...mockedApiResults, error: true })
-      }
-    }
-
-    fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 

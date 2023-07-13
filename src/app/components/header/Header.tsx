@@ -34,12 +34,10 @@ export default function Header() {
             display: 'flex',
             flexDirection: 'column',
             height: 'fit-content',
-            pt: '16px',
-            pb: '24px',
+            p: '16px 0',
 
             [theme.breakpoints.up('sm')]: {
               flexDirection: 'row',
-              pb: '16px',
             },
           }}
         >
@@ -54,6 +52,7 @@ export default function Header() {
                 width: 'fit-content',
                 gap: '6px',
                 alignItems: 'center',
+                marginBottom: '8px',
               }}
             >
               <Typography
