@@ -17,7 +17,7 @@ export default function SearchListSection() {
   const isSearchValid = searchData.search && searchData.search.length > 0
 
   return (
-    <section className="productInfosSection">
+    <section className="search-list-section" data-testid='search-list-section'>
       {isSearchValid ? (
         <SearchList />
       ) : (

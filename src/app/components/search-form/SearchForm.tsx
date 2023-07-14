@@ -53,7 +53,7 @@ export default function SearchForm() {
   }
 
   return (
-    <section className="search-input" style={sectionStyle}>
+    <section className="search-form-section" data-testid="search-form-section" style={sectionStyle}>
       <Formik
         initialValues={searchData}
         validationSchema={validationSchema}
