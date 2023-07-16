@@ -10,7 +10,7 @@
     "codegen": "graphql-codegen --config codegen.ts",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "jest",
+    "test": "jest --silent --verbose",
     "test:watch": "jest --watchAll"
   },
   "dependencies": {
@@ -51,6 +51,7 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "eslint-plugin-jest-dom": "^5.0.1",
     "eslint-plugin-storybook": "^0.6.12",
     "eslint-plugin-testing-library": "^5.11.0",
