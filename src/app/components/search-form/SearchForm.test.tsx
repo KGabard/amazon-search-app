@@ -3,6 +3,8 @@ import SearchForm from './SearchForm'
 import { ThemeProvider } from '@mui/material'
 import { theme } from '@/styles/theme'
 import userEvent from '@testing-library/user-event'
+import { SearchDataType } from '@/models/SearchModel'
+import { FormikHelpers } from 'formik'
 
 const renderWithTheme = (ui: React.JSX.Element) => {
   render(<ThemeProvider theme={theme}>{ui}</ThemeProvider>)
@@ -19,31 +21,59 @@ const getFormElements = () => {
   return { searchBtnElmt, searchInputElmt, domainInputElmt, sortInputElmt }
 }
 
+const initialValues: SearchDataType = {
+  search: '',
+  domain: '',
+  sort: '',
+}
+
+const handleFormSubmit = jest.fn()
+
 describe('Search Form test suite', () => {
   describe('Rendering', () => {
     it('should include a search text field', () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { searchInputElmt } = getFormElements()
       expect(searchInputElmt).toBeInTheDocument()
       expect(searchInputElmt).toHaveAttribute('type', 'text')
     })
 
     it('should include a domain listbox field', () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { domainInputElmt } = getFormElements()
       expect(domainInputElmt).toBeInTheDocument()
       expect(domainInputElmt).toHaveAttribute('aria-haspopup', 'listbox')
     })
 
     it('should include a sort listbox field', () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { sortInputElmt } = getFormElements()
       expect(sortInputElmt).toBeInTheDocument()
       expect(sortInputElmt).toHaveAttribute('aria-haspopup', 'listbox')
     })
 
     it('should include a search button', () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { searchBtnElmt } = getFormElements()
       expect(searchBtnElmt).toBeInTheDocument()
     })
@@ -51,7 +81,12 @@ describe('Search Form test suite', () => {
 
   describe('Behavior', () => {
     it('should warn helperText "is required" for empty inputs', async () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { searchInputElmt, domainInputElmt, sortInputElmt, searchBtnElmt } =
         getFormElements()
 
@@ -65,10 +100,19 @@ describe('Search Form test suite', () => {
       expect(domainInputElmt).toHaveClass('Mui-error')
       expect(await screen.findByText('Sort is required')).toBeInTheDocument()
       expect(sortInputElmt).toHaveClass('Mui-error')
+
+      await userEvent.click(searchBtnElmt)
+
+      expect(handleFormSubmit).not.toHaveBeenCalled
     })
 
     it('should warn helperText about lenght for search input < 2 caracters', async () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { searchInputElmt, searchBtnElmt } = getFormElements()
 
       await userEvent.type(searchInputElmt, 'a') // 1 caracter
@@ -90,7 +134,12 @@ describe('Search Form test suite', () => {
     })
 
     it('should warn helperText about lenght for search input > 30 caracters', async () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { searchInputElmt, searchBtnElmt } = getFormElements()
 
       await userEvent.type(searchInputElmt, 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa') // 31 caracters
@@ -114,7 +163,12 @@ describe('Search Form test suite', () => {
     })
 
     it('should be submit if all inputs are ok', async () => {
-      renderWithTheme(<SearchForm />)
+      renderWithTheme(
+        <SearchForm
+          initialValues={initialValues}
+          handleSubmit={handleFormSubmit}
+        />
+      )
       const { searchInputElmt, domainInputElmt, sortInputElmt, searchBtnElmt } =
         getFormElements()
 
@@ -127,9 +181,11 @@ describe('Search Form test suite', () => {
 
       await userEvent.click(sortInputElmt)
       await userEvent.click(screen.getByRole('option', { name: 'Most recent' }))
-      expect(domainInputElmt).toHaveTextContent('Most recent')
+      expect(sortInputElmt).toHaveTextContent('Most recent')
 
       await userEvent.click(searchBtnElmt)
+
+      expect(handleFormSubmit).toHaveBeenCalled()
     })
   })
 })

@@ -40,22 +40,34 @@ const sectionStyle: CSSProperties = {
   width: '100%',
 }
 
-export default function SearchForm() {
-  const { searchData, setSearchData } = useContext(searchDataContext)
-
-  const handleSubmit = (
+type Props = {
+  initialValues: SearchDataType
+  handleSubmit: (
     values: SearchDataType,
     actions: FormikHelpers<SearchDataType>
-  ) => {
-    // console.log(values)
-    setSearchData(values)
-    actions.setSubmitting(false)
-  }
+  ) => void
+}
+
+export default function SearchForm({ initialValues, handleSubmit }: Props) {
+  // const { searchData, setSearchData } = useContext(searchDataContext)
+
+  // const handleSubmit = (
+  //   values: SearchDataType,
+  //   actions: FormikHelpers<SearchDataType>
+  // ) => {
+  //   // console.log(values)
+  //   setSearchData(values)
+  //   actions.setSubmitting(false)
+  // }
 
   return (
-    <section className="search-form-section" data-testid="search-form-section" style={sectionStyle}>
+    <section
+      className="search-form-section"
+      data-testid="search-form-section"
+      style={sectionStyle}
+    >
       <Formik
-        initialValues={searchData}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
