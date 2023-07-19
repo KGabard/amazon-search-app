@@ -86,6 +86,7 @@ const filledProductCard = (product: ProductClass) => {
         display: 'inline-block',
         width: 'fit-content',
       }}
+      data-testid="productcard-link"
     >
       <Paper sx={{ ...containerStyle, ...hoverEffectStyle }}>
         <Box sx={imageStyle}>
@@ -97,10 +98,16 @@ const filledProductCard = (product: ProductClass) => {
               objectFit: 'contain',
             }}
             sizes={'(max-width: 768px) 100vw'}
+            data-testid="productcard-picture"
           />
         </Box>
         <Box sx={infoContainerStyle}>
-          <Typography component={'h2'} variant="body" sx={titleStyle}>
+          <Typography
+            component={'h2'}
+            variant="body"
+            sx={titleStyle}
+            data-testid="productcard-title"
+          >
             {product.title}
           </Typography>
           {product.rating && (
@@ -119,10 +126,12 @@ const filledProductCard = (product: ProductClass) => {
                     fontSize="inherit"
                   />
                 }
+                data-testid="productcard-stars"
               />
               <Typography
                 component={'p'}
                 variant="body"
+                data-testid="productcard-rating"
               >{`${product.rating}`}</Typography>
               <Typography
                 component={'p'}
@@ -130,6 +139,7 @@ const filledProductCard = (product: ProductClass) => {
                 sx={{
                   ml: 1,
                 }}
+                data-testid="productcard-ratingcount"
               >{`(${product.ratingsCount})`}</Typography>
             </Box>
           )}
@@ -137,6 +147,7 @@ const filledProductCard = (product: ProductClass) => {
             sx={{ alignSelf: 'end', marginTop: 'auto' }}
             component={'p'}
             variant="subtitle"
+            data-testid="productcard-price"
           >
             {product.price}
           </Typography>
@@ -152,6 +163,7 @@ const loadingProductCard = () => {
       <Skeleton
         variant="rectangular"
         sx={{ ...imageStyle, backgroundColor: theme.palette.white.transparent }}
+        data-testid="loading-picture"
       />
       <Box sx={infoContainerStyle}>
         <Skeleton
@@ -160,6 +172,7 @@ const loadingProductCard = () => {
             fontSize: '1.5rem',
             backgroundColor: theme.palette.white.transparent,
           }}
+          data-testid="loading-text"
         />
         <Skeleton
           variant="text"
@@ -168,6 +181,7 @@ const loadingProductCard = () => {
             width: '60%',
             backgroundColor: theme.palette.white.transparent,
           }}
+          data-testid="loading-text"
         />
         <Skeleton
           variant="text"
@@ -178,6 +192,7 @@ const loadingProductCard = () => {
             marginTop: 'auto',
             backgroundColor: theme.palette.white.transparent,
           }}
+          data-testid="loading-text"
         />
       </Box>
     </Paper>

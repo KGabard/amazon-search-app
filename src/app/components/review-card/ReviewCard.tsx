@@ -1,7 +1,7 @@
 import { ReviewType } from '@/types'
 import { Box, Paper, Typography, styled } from '@mui/material'
 import StarIcon from '@mui/icons-material/Star'
-import { fomatReviewTitle } from '@/lib/utils'
+import { formatReviewTitle } from '@/lib/utils'
 
 type Props = {
   review: ReviewType
@@ -45,7 +45,7 @@ export default function ReviewCard({ review }: Props) {
           <StarIcon />
         </Box>
         <Typography component={'h3'} variant="subtitle">
-          {fomatReviewTitle(review.title)}
+          {formatReviewTitle(review.title)}
         </Typography>
       </Box>
       <Typography
