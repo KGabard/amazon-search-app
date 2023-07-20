@@ -8,7 +8,7 @@
 - Mise en place de tests.
 
 ## Description
-Ce site permet d'effectuer une recherche dans la base de donnée produit d'Amazon via l'API Canopi. Seul bémol cette API présente un temps de réponse parfois long, il faut être patient.
+Moteur de recherche de produits Amazon utilisant l'API Canopi. Seul bémol cette API présente un temps de réponse parfois long, il faut être patient.
 
 ## Technologies
 Framework :
