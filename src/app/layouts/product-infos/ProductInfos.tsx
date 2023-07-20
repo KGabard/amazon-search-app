@@ -1,5 +1,7 @@
+'use client'
+
 import useProductApi from '@/hooks/useProductApi'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid, Typography, Container } from '@mui/material'
 import { ApolloError } from '@apollo/client'
 import { DetailedProductClass } from '@/models/ProductModel'
 import RatingsBreakdown from '@/app/components/ratings-breakdown/RatingsBreakdown'
@@ -147,5 +149,11 @@ export default function ProductInfos({ productAsin }: Props) {
       <ProductContent product={new DetailedProductClass(data?.amazonProduct)} />
     )
 
-  return <section className="productInfosSection">{content}</section>
+  return (
+    <Container
+      sx={{ mt: 8, mb: 12, display: 'flex', flexDirection: 'column', gap: 8 }}
+    >
+      <section className="productInfosSection">{content}</section>
+    </Container>
+  )
 }
