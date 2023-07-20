@@ -1,0 +1,3 @@
+- readme
+- déploiement
+- generateMetadata de la page produit et de la home page
