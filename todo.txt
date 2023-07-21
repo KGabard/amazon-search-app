@@ -1,4 +1,4 @@
-- readme
-- déploiement
+X readme
+X déploiement
 - generateMetadata de la page produit et de la home page
 - Rajouter le prix sur la page produit
