@@ -55,6 +55,7 @@ function ProductContent({
           <ProductDescription
             title={product?.title}
             brand={product?.brand}
+            price={product?.price}
             url={product?.url}
           />
         )}

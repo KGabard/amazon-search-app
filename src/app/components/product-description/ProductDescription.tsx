@@ -12,6 +12,7 @@ const ContainerBox = styled(Box)(({ theme }) => ({
 type Props = {
   loading?: boolean
   title?: string
+  price?: string
   brand?: string
   url?: string
 }
@@ -19,6 +20,7 @@ type Props = {
 export default function ProductDescription({
   loading,
   title,
+  price,
   brand,
   url,
 }: Props) {
@@ -68,7 +70,7 @@ export default function ProductDescription({
     </ContainerBox>
   ) : (
     <ContainerBox>
-      <Typography component="p" variant="title">
+      <Typography component="h1" variant="title">
         {title ? title : 'Unknown'}
       </Typography>
       {brand && (
@@ -76,6 +78,9 @@ export default function ProductDescription({
           {`Brand : ${brand}`}
         </Typography>
       )}
+      <Typography component={'p'} variant="subtitle">
+        {`Price : ${price}`}
+      </Typography>
       {url && (
         <Typography component={'p'} variant="bodyItalic">
           Link to{' '}
