@@ -20,13 +20,23 @@ export default function Home() {
     setSearchData(values)
     actions.setSubmitting(false)
   }
-  
+
+  const token =
+    process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_CANOPY_API_TOKEN
+      : ''
+
+  console.log('token : ', token)
+
   return (
     <main className="main">
       <Container
         sx={{ mt: 8, mb: 12, display: 'flex', flexDirection: 'column', gap: 8 }}
       >
-        <SearchForm initialValues={searchData} handleSubmit={handleFormSubmit} />
+        <SearchForm
+          initialValues={searchData}
+          handleSubmit={handleFormSubmit}
+        />
         <SearchListSection />
       </Container>
     </main>
