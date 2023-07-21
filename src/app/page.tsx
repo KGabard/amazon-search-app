@@ -21,13 +21,6 @@ export default function Home() {
     actions.setSubmitting(false)
   }
 
-  const token =
-    process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_CANOPY_API_TOKEN
-      : ''
-
-  console.log('token : ', token)
-
   return (
     <main className="main">
       <Container
